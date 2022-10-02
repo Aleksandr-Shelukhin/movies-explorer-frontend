@@ -1,0 +1,137 @@
+.promo {
+    padding: 150px 0 75px;
+    background-color: var(--background-promo);
+}
+
+.promo__wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+.promo__title,
+.promo__title_type_mobile {
+    margin: 0;
+
+    width: 100%;
+    max-width: 640px;
+
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 50px;
+    font-weight: 400;
+    line-height: 1.16;
+    color: var(--text-white);
+    text-size-adjust: 100%;
+}
+
+.promo__title_type_mobile {
+    display: none;
+}
+
+.promo__subtitle {
+    margin: 36px 0 0;
+
+    width: 100%;
+    max-width: 310px;
+
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--text-white);
+    opacity: .5;
+    text-size-adjust: 100%;
+}
+
+.promo__button {
+    margin: 146px 0 0;
+    padding: 10px 20px;
+
+    display: inline-block;
+
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-white);
+    text-size-adjust: 100%;
+    text-decoration: none;
+
+    border: 1px solid var(--color-white);
+    border-radius: var(--border-radius-s);
+}
+
+.promo__image {
+    width: 310px;
+    height: 304px;
+}
+
+@media screen and (max-width: 768px) {
+    .promo {
+        padding-top: 215px;
+    }
+
+    .promo__col {
+        margin-top: 50px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .promo__wrapper {
+        flex-direction: column-reverse;
+        align-items: center;
+    }
+
+    .promo__title {
+        display: none;
+    }
+
+    .promo__title_type_mobile {
+        display: initial;
+    }
+
+    .promo__title_type_mobile,
+    .promo__subtitle {
+        text-align: center;
+    }
+
+    .promo__title_type_mobile {
+        font-size: 40px;
+        line-height: 1.25;
+    }
+
+    .promo__subtitle {
+        margin-top: 20px;
+    }
+
+    .promo__button {
+        margin-top: 90px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .promo {
+        padding: 145px 0 30px;
+    }
+    .promo__image {
+        width: 210px;
+        height: 206px;
+    }
+
+    .promo__col {
+        margin-top: 45px;
+    }
+
+    .promo__title_type_mobile {
+        font-size: 30px;
+    }
+
+    .promo__subtitle {
+        margin-top: 25px;
+    }
+
+    .promo__button {
+        margin-top: 82px;
+    }
+
+}
+
