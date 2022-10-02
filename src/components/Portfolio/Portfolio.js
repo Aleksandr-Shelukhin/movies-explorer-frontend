@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 
 const Portfolio = () => {
   return (
@@ -7,13 +6,13 @@ const Portfolio = () => {
       <h3 className="portfolio__title">Портфолио</h3>
       <ul className="portfolio__links">
         <li className="portfolio__item">
-          <Link to="#" className="portfolio__link transition-on-hover">Статичный сайт</Link>
+          <a href="https://github.com/Aleksandr-Shelukhin/how-to-learn" className="portfolio__link transition-on-hover">Статичный сайт</a>
         </li>
         <li className="portfolio__item">
-          <Link to="#" className="portfolio__link transition-on-hover">Адаптивный сайт</Link>
+          <a href="https://aleksandr-shelukhin.github.io/russian-travel/" className="portfolio__link transition-on-hover">Адаптивный сайт</a>
         </li>
         <li className="portfolio__item">
-          <Link to="#" className="portfolio__link transition-on-hover">Одностраничное приложение</Link>
+          <a href="https://alex.shelukhin.nomorepartiesxyz.ru/sign-in" className="portfolio__link transition-on-hover">Одностраничное приложение</a>
         </li>
       </ul>
     </section>

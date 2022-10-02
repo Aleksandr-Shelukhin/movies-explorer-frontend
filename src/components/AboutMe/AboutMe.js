@@ -1,5 +1,4 @@
 import React from 'react';
-import {Link} from "react-router-dom";
 import aboutMeImage from "../../images/aboutme-photo.jpg";
 import Portfolio from "../Portfolio/Portfolio";
 
@@ -14,7 +13,7 @@ const AboutMe = () => {
             <p className="about-me__title">Александр</p>
             <p className="about-me__subtitle">Немолодой Фронтенд-разработчик</p>
             <p className="about-me__description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto aut cumque distinctio, ea eum excepturi explicabo, illum iure nostrum officia sit tempore. Accusantium incidunt ipsam minus molestias nemo provident suscipit. Architecto aut cumque distinctio, ea eum excepturi explicabo, illum iure nostrum officia sit tempore. Accusantium incidunt.</p>
-            <Link to="https://github.com/Aleksandr-Shelukhin" className="about-me__link transition-on-hover">Github</Link>
+            <a href="https://github.com/Aleksandr-Shelukhin" className="about-me__link transition-on-hover">Github</a>
           </div>
           <img src={aboutMeImage} alt="Фотография студента" className="about-me__image"/>
         </div>
