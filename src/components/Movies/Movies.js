@@ -1,11 +1,13 @@
 import React from 'react';
+import SearchForm from "../SearchForm/SearchForm";
 
 const Movies = () => {
   return (
-    <div>
-      <p>Movies page</p>
-    </div>
-  );
+    <main className="main">
+      <SearchForm/>
+    </main>
+
+);
 };
 
 export default Movies;
