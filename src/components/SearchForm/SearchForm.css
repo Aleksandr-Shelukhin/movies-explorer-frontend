@@ -80,6 +80,10 @@
 }
 
 @media screen and (max-width: 576px) {
+    .search {
+        padding-bottom: 50px;
+    }
+
     .search__form-input {
         padding-right: 19px;
 

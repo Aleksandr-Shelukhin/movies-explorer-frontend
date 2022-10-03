@@ -25,3 +25,27 @@
 
     cursor: pointer;
 }
+
+@media screen and (max-width: 991px) {
+    .movies__list {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .movies__list {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px 24px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .movies__list {
+        grid-template-columns: repeat(1, 1fr);
+        row-gap: 16px;
+    }
+
+    .movies__more-btn {
+        padding: 10px 108px;
+    }
+}
