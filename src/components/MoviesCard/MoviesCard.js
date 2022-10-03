@@ -7,7 +7,7 @@ const MoviesCard = () => {
       <img src={cardImage} alt="Постер" className="card__image"/>
       <div className="card__title-wrapper">
         <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-        <button className="card__button transition-on-hover"></button>
+        <button className="card__button card__button_type_delete transition-on-hover"></button>
       </div>
       <p className="card__duration">1ч42м</p>
     </div>

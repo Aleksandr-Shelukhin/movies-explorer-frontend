@@ -6,12 +6,12 @@ import AboutMe from "../AboutMe/AboutMe";
 
 const Main = () => {
   return (
-    <main className="main">
+    <>
       <Promo/>
       <AboutProject/>
       <Techs/>
       <AboutMe/>
-    </main>
+    </>
   );
 };
 

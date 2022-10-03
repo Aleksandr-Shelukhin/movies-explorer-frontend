@@ -15,8 +15,8 @@ import cardImage12 from "../../images/movies/pic__COLOR_pic-13.jpg";
 
 const MoviesCardList = () => {
   return (
-    <section className="movies">
-      <div className="container_type_movie-page">
+    <div className="movies">
+      <div className="container container_type_movie-page">
         <div className="movies__list">
           <MoviesCard/>
 
@@ -146,7 +146,7 @@ const MoviesCardList = () => {
         </div>
         <button className="movies__more-btn transition-on-hover" type="button">Ещё</button>
       </div>
-    </section>
+    </div>
   );
 };
 

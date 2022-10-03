@@ -3,8 +3,8 @@ import FilterCheckBox from "../FilterCheckBox/FilterCheckBox";
 
 const SearchForm = () => {
   return (
-    <section className="search">
-      <div className="container_type_movie-page">
+    <div className="search">
+      <div className="container container_type_movie-page">
         <form className="search__form" name="search-form">
           <div className="search__wrapper">
             <input
@@ -24,7 +24,7 @@ const SearchForm = () => {
         <hr className="search__line"/>
       </div>
 
-    </section>
+    </div>
   );
 };
 
