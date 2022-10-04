@@ -1,12 +1,15 @@
 import React from 'react';
-import Main from "../Main/Main";
 import {Route, Switch} from "react-router-dom";
+
+import Main from "../Main/Main";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
 
 
 const App = () => {
@@ -14,7 +17,9 @@ const App = () => {
     <div className="page">
         <Switch>
           <Route exact path='/'>
+            <Header/>
             <Main/>
+            <Footer/>
           </Route>
           <Route path='/movies'>
             <Movies/>

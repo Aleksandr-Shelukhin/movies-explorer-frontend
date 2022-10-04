@@ -28,6 +28,10 @@
     align-items: center;
 }
 
+.header__nav {
+    margin-left: 74px;
+}
+
 .header__link {
     margin: 0 0 0 18px;
 
@@ -77,6 +81,7 @@
     font-size: 14px;
     line-height: 1.1;
 
+
     position: relative;
 }
 
@@ -96,6 +101,11 @@
 @media screen and (max-width: 768px) {
     .header {
         padding: 0 30px;
+    }
+
+    .header__nav,
+    .header__link_type_profile {
+        display: none;
     }
 
     .header__burger {
