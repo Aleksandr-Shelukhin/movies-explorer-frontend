@@ -1,7 +1,10 @@
 import React from 'react';
+import Header from "../Header/Header";
 
 const Profile = () => {
   return (
+    <>
+    <Header/>
     <div className="profile">
       <p className="profile__title">Привет, Александр!</p>
       <form className="profile__form">
@@ -36,13 +39,12 @@ const Profile = () => {
             Редактировать
           </button>
         </form>
-        <button
-          className="profile__sign-out-button transition-on-hover"
-          type="submit">
+        <p
+          className="profile__sign-out-button transition-on-hover">
           Выйти из&nbsp;аккаунта
-        </button>
-
+        </p>
       </div>
+    </>
   );
 };
 

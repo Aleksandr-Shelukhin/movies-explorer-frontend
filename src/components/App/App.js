@@ -1,7 +1,5 @@
 import React from 'react';
-import Header from "../Header/Header";
 import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
 import {Route, Switch} from "react-router-dom";
 import Login from "../Login/Login";
 import Register from "../Register/Register";
@@ -14,10 +12,7 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 const App = () => {
   return (
     <div className="page">
-      <Header/>
-      <main className="main">
         <Switch>
-
           <Route exact path='/'>
             <Main/>
           </Route>
@@ -39,12 +34,7 @@ const App = () => {
           <Route path='*'>
             <PageNotFound/>
           </Route>
-
         </Switch>
-      </main>
-
-
-      <Footer/>
     </div>
   );
 };
