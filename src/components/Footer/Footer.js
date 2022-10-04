@@ -9,8 +9,8 @@ const Footer = () => {
         <div className="footer__wrapper">
           <p className="footer__copyright">&copy;&nbsp;2022</p>
           <div className="footer__links">
-            <a href="https://practicum.yandex.ru" className="footer__link transition-on-hover">Яндекс.Практикум</a>
-            <a href="https://github.com/Aleksandr-Shelukhin" className="footer__link transition-on-hover">Github</a>
+            <a href="https://practicum.yandex.ru" target="_blank" rel="noopener noreferrer" className="footer__link transition-on-hover">Яндекс.Практикум</a>
+            <a href="https://github.com/Aleksandr-Shelukhin" target="_blank" rel="noopener noreferrer" className="footer__link transition-on-hover">Github</a>
           </div>
         </div>
       </footer>
