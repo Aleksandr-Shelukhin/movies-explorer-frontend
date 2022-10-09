@@ -1,0 +1,133 @@
+.mobile-menu {
+    padding: 0 30px 90px;
+    width: 100%;
+    max-width: 520px;
+
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+
+    z-index: 1001;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: var(--background);
+
+    box-sizing: border-box;
+
+    transform: translateX(100%);
+
+    visibility: hidden;
+
+    transition: all .2s;
+}
+
+.mobile-menu_active {
+    transform: translateX(0);
+
+    visibility: visible;
+}
+
+.mobile-menu__nav {
+    margin: 135px 0 30px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile-menu__link {
+    margin: 30px 0 0;
+
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-white);
+    text-size-adjust: 100%;
+    text-decoration: none;
+}
+
+.mobile-menu__link_active {
+    text-decoration: underline;
+}
+
+.mobile-menu__close-button {
+    width: 18px;
+    height: 18px;
+
+    position: absolute;
+    top: 30px;
+    right: 30px;
+
+    cursor: pointer;
+}
+
+.mobile-menu__link-profile {
+    margin-top: auto;
+    padding: 6px 12px 6px 31px;
+
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-white);
+    text-size-adjust: 100%;
+    text-decoration: none;
+
+    border: solid 2px var(--border-secondary-light);
+    border-radius: var(--border-radius-xxl);
+
+    position: relative;
+}
+
+.mobile-menu__link-profile:before {
+    content: url("../../images/user-icon.svg");
+
+    width: 12px;
+    height: 14px;
+
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+
+}
+
+.mobile-menu__close-button:before,
+.mobile-menu__close-button:after {
+    content: '';
+    width: 22px;
+    height: 3px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    background-color: var(--color-white);
+}
+
+.mobile-menu__close-button:before {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.mobile-menu__close-button:after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@media screen and (max-width: 576px) {
+    .mobile-menu {
+        padding-bottom: 34px;
+    }
+
+    .mobile-menu__nav {
+        margin-top: 112px;
+    }
+
+    .mobile-menu__close-button {
+        top: 20px;
+        right: 20px;
+    }
+}
+

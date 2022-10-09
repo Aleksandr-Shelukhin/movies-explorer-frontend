@@ -1,0 +1,117 @@
+/* Additional styles */
+
+/** Containers
+    =========================================== */
+
+.body {
+    background-color: var(--background);
+
+    box-sizing: border-box;
+}
+
+.container,
+.container_type_movie-page,
+.container_type_promo {
+    margin: 0 auto;
+    padding: 0 70px;
+
+    width: 100%;
+    max-width: 1280px;
+
+    box-sizing: border-box;
+}
+
+
+@media screen and (max-width: 768px) {
+    .container,
+    .container_type_promo {
+        padding: 0 50px;
+    }
+
+    .container_type_movie-page {
+        padding: 0 30px;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container {
+        padding: 0 18px;
+    }
+
+    .container_type_promo,
+    .container_type_movie-page {
+        padding: 0 10px;
+    }
+
+    .container_type_promo{
+        padding: 0 6px;
+    }
+}
+
+/** Replacements
+    =========================================== */
+
+/**
+ * Section title
+ */
+
+.section__title {
+    margin: 0 0 23px;
+
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: -.5px;
+    color: var(--text-white);
+    text-size-adjust: 100%;
+}
+
+.section__line {
+    margin: 0;
+    padding: 0;
+
+    border: none;
+    border-bottom: 1px solid var(--border-light);
+}
+
+@media screen and (max-width: 576px) {
+    .section__title {
+        margin-bottom: 28px;
+        font-size: 18px;
+    }
+}
+
+/** Conditions
+    =========================================== */
+
+/**
+ * Visibility
+ */
+
+.hidden-block {
+    display: none;
+}
+
+.show-block {
+    display: block;
+}
+
+/**
+ * Transition
+ */
+
+.transition-on-hover {
+    transition: opacity .2s ease-in-out;
+}
+
+.transition-on-hover:hover {
+    opacity: 0.6;
+}
+
+/**
+ * Active links
+ */
+
+.active-link {
+    font-weight: 500;
+}
