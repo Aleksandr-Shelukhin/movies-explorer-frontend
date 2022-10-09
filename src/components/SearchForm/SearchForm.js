@@ -14,6 +14,7 @@ const SearchForm = () => {
               name="name"
               minLength="1"
               maxLength="100"
+              required
             />
             <button className="search__form-button transition-on-hover" type="submit"></button>
           </div>
