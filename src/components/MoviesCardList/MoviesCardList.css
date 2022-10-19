@@ -10,7 +10,7 @@
     margin: 40px auto 0;
     padding: 10px 148px;
 
-    display: block;
+    display: none;
 
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-size: 12px;
@@ -24,6 +24,10 @@
     border-radius: var(--border-radius-m);
 
     cursor: pointer;
+}
+
+.movies__more-btn {
+    display: block;
 }
 
 @media screen and (max-width: 991px) {

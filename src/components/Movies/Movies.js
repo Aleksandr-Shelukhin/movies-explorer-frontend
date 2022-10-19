@@ -4,13 +4,33 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-const Movies = () => {
+const Movies = (
+  {
+    searchMovie,
+    saveMovie,
+    deleteMovie,
+    filterShortMovies,
+    errorMessageMovies,
+  }) => {
+  React.useEffect(() => {
+  return () => {
+    errorMessageMovies(null);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+
   return (
     <>
       <Header/>
       <main className="main">
-        <SearchForm/>
-        <MoviesCardList/>
+        <SearchForm
+          searchMovie={searchMovie}
+          filterShortMovies={filterShortMovies}
+        />
+        <MoviesCardList
+          saveMovie={saveMovie}
+          deleteMovie={deleteMovie}
+        />
       </main>
       <Footer/>
     </>

@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-const SavedMovies = () => {
+const SavedMovies = (
+  {
+    setSavedMovies,
+    searchMovie,
+    deleteSavedMovie,
+    filterShortMovies,
+    errorMessageSavedMovies,
+  }) => {
+  useEffect(() => {
+    return () => {
+      errorMessageSavedMovies(null);
+      const lastSavedMovies = JSON.parse(localStorage.getItem('lastSaved'));
+      setSavedMovies(lastSavedMovies);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <>
       <Header/>
       <main className="main">
-        <SearchForm/>
-        <MoviesCardList/>
+        <SearchForm searchMovie={searchMovie} filterShortMovies={filterShortMovies} />
+        <MoviesCardList deleteSavedMovie={deleteSavedMovie} />
       </main>
       <Footer/>
     </>

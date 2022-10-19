@@ -1,150 +1,95 @@
-import React from 'react';
-import MoviesCard from "../MoviesCard/MoviesCard";
-import cardImage1 from "../../images/movies/pic__COLOR_pic-1.jpg";
-import cardImage2 from "../../images/movies/pic__COLOR_pic-2.jpg";
-import cardImage3 from "../../images/movies/pic__COLOR_pic-3.jpg";
-import cardImage4 from "../../images/movies/pic__COLOR_pic-4.jpg";
-import cardImage5 from "../../images/movies/pic__COLOR_pic-5.jpg";
-import cardImage6 from "../../images/movies/pic__COLOR_pic-6.jpg";
-import cardImage7 from "../../images/movies/pic__COLOR_pic-7.jpg";
-import cardImage8 from "../../images/movies/pic__COLOR_pic-8.jpg";
-import cardImage9 from "../../images/movies/pic__COLOR_pic-9.jpg";
-import cardImage10 from "../../images/movies/pic__COLOR_pic-10.jpg";
-import cardImage11 from "../../images/movies/pic__COLOR_pic-11.jpg";
-import cardImage12 from "../../images/movies/pic__COLOR_pic-13.jpg";
+import React, { useState, useEffect } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 
-const MoviesCardList = () => {
+import MoviesCard from "../MoviesCard/MoviesCard";
+import Preloader from '../Preloader/Preloader';
+import windowWidth from "../../hooks/windowWidth";
+import { AppContext } from '../../context/AppContext';
+
+const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
+  const moviesRoute = useRouteMatch({ path: '/movies', exact: false });
+  const savedMoviesRoute = useRouteMatch({ path: '/saved-movies', exact: false });
+  const {
+    moviesCards,
+    isCardsLoading,
+    errorMessageMovies,
+    errorMessageSavedMovies,
+    savedMovies } = React.useContext(AppContext);
+  const width = windowWidth();
+
+  const [cards, setCards] = useState(0);
+  const [moreCards, setMoreCards] = useState(0);
+
+  useEffect(() => {
+    function getCards() {
+      if (width > 1200) {
+        setCards(12);
+        setMoreCards(3);
+      } else if (width <= 1200 && width > 750) {
+        setCards(8);
+        setMoreCards(2);
+      } else if (width <= 750) {
+        setCards(5);
+        setMoreCards(1);
+      }
+    }
+    getCards();
+  }, [width]);
+
+  function getMoreCards() {
+    setCards(cards + moreCards);
+  }
+
   return (
     <div className="movies">
       <div className="container container_type_movie-page">
         <div className="movies__list">
-          <MoviesCard/>
-
-        {/* Default cards START */}
-
-          <div className="card">
-            <img src={cardImage3} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-              <button className="card__button transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-
-          <div className="card">
-            <img src={cardImage1} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-              <button className="card__button card__button_type_active transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-
-          <div className="card">
-            <img src={cardImage2} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-              <button className="card__button transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-        {/* Default cards END */}
-          <MoviesCard/>
-
-        {/* Default cards START */}
-
-          <div className="card">
-            <img src={cardImage4} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-              <button className="card__button transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-
-          <div className="card">
-            <img src={cardImage5} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">Пи&nbsp;Джей Харви: A&nbsp;dog called money</div>
-              <button className="card__button transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-
-          <div className="card">
-            <img src={cardImage6} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-              <button className="card__button transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-        {/* Default cards END */}
-          <MoviesCard/>
-
-        {/* Default cards START */}
-
-          <div className="card">
-            <img src={cardImage7} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">Если будет очень длинный заголовок у фильма, то после двух строй будет многоточие</div>
-              <button className="card__button transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-
-          <div className="card">
-            <img src={cardImage8} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-              <button className="card__button card__button_type_active transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-
-          <div className="card">
-            <img src={cardImage9} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-              <button className="card__button transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-        {/* Default cards END */}
-          <MoviesCard/>
-
-        {/* Default cards START */}
-
-          <div className="card">
-            <img src={cardImage10} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-              <button className="card__button transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-
-          <div className="card">
-            <img src={cardImage11} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">33&nbsp;слова о&nbsp;дизайне</div>
-              <button className="card__button transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-
-          <div className="card">
-            <img src={cardImage12} alt="Постер" className="card__image"/>
-            <div className="card__title-wrapper">
-              <div className="card__title">По&nbsp;волнам: Искусство звука в&nbsp;кино</div>
-              <button className="card__button card__button_type_active transition-on-hover"></button>
-            </div>
-            <p className="card__duration">1ч42м</p>
-          </div>
-        {/* Default cards END */}
+          { moviesRoute && (
+            <>
+              <div className="movies__list-preloader">
+                {errorMessageMovies && (
+                  <p className="movies__list-error-message">{errorMessageMovies}</p>
+                )}
+                {isCardsLoading && <Preloader />}
+              </div>
+              {moviesCards.map((card) => (
+                <MoviesCard
+                  key={card._id}
+                  card={card}
+                  saveMovie={saveMovie}
+                  deleteMovie={deleteMovie}
+                />
+              ))}
+            </>
+          )}
+          { savedMoviesRoute && (
+            <>
+              <div className="movies__list-preloader">
+                {errorMessageSavedMovies && (
+                  <p className="movies__list-error-message">{errorMessageSavedMovies}</p>
+                )}
+                {isCardsLoading && <Preloader />}
+              </div>
+              {savedMovies.map((card) => (
+                <MoviesCard
+                  key={card._id}
+                  card={card}
+                  saveMovie={saveMovie}
+                  deleteSavedMovie={deleteSavedMovie}
+                />
+              ))}
+            </>
+          )}
 
         </div>
-        <button className="movies__more-btn transition-on-hover" type="button">Ещё</button>
+        <button
+          className={`movies__more-btn 
+          ${moviesCards.length >= cards
+          ? 'more-movies-card_type_active'
+          : ''} transition-on-hover`}
+          type="button"
+          onClick={getMoreCards}
+        >Ещё</button>
       </div>
     </div>
   );

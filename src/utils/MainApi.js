@@ -7,6 +7,17 @@ const getServerResponse = (res) => { // проверка состояние се
   return Promise.reject(`Ошибка: ${res.status}`); //если ответ не ОК - выводим код ошибки
 }
 
+export const getUserInfo = () => {
+  return fetch(`${mainApiBaseUrl}/users/me`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${localStorage.getItem('jwt')}`,
+    },
+  }).then(getServerResponse);
+};
+
 export const updateUserInfo = (data) => {
   return fetch(`${mainApiBaseUrl}/users/me`, {
     method: 'PATCH',
