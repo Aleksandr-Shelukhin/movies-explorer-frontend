@@ -22,7 +22,10 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
 
   useEffect(() => {
     function getCards() {
-      if (width > 768) {
+      if (width > 991) {
+        setCards(16);
+        setMoreCards(8);
+      } else if (width > 768 && width <= 991) {
         setCards(12);
         setMoreCards(3);
       } else if (width <= 768 && width > 480) {
@@ -47,12 +50,15 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
           {errorMessageMovies && (
             <p className="movies__list-error-message">{errorMessageMovies}</p>
           )}
+          {errorMessageSavedMovies && (
+            <p className="movies__list-error-message">{errorMessageSavedMovies}</p>
+          )}
           {isCardsLoading && <Preloader />}
         </div>
         <div className="movies__list">
           { moviesRoute && (
             <>
-              {moviesCards.map((card) => (
+              {moviesCards.slice(0, cards).map((card) => (
                 <MoviesCard
                   key={card.id}
                   card={card}
@@ -64,15 +70,10 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
           )}
           { savedMoviesRoute && (
             <>
-              <div className="movies__list-preloader">
-                {errorMessageSavedMovies && (
-                  <p className="movies__list-error-message">{errorMessageSavedMovies}</p>
-                )}
-                {isCardsLoading && <Preloader />}
-              </div>
+
               {savedMovies.map((card) => (
                 <MoviesCard
-                  key={card.id}
+                  key={card._id}
                   card={card}
                   saveMovie={saveMovie}
                   deleteSavedMovie={deleteSavedMovie}

@@ -47,6 +47,7 @@ export const getMoviesInfo = () => {
 };
 
 export const createMovie = (data) => {
+  console.log(data)
   return fetch(`${mainApiBaseUrl}/movies`, {
     method: 'POST',
     headers: {
@@ -62,7 +63,7 @@ export const createMovie = (data) => {
       year: data.year,
       description: data.description,
       image: `${moviesApiBaseUrl}${data.image.url}`,
-      trailer: data.trailerLink,
+      trailerLink: data.trailerLink,
       nameRU: data.nameRU,
       nameEN: data.nameEN,
       thumbnail: `${moviesApiBaseUrl}${data.image.formats.thumbnail.url}`,
@@ -72,7 +73,7 @@ export const createMovie = (data) => {
 };
 
 export const deleteMovie = (id) => {
-  return fetch(`${moviesApiBaseUrl}/movies/${id}`, {
+  return fetch(`${mainApiBaseUrl}/movies/${id}`, {
     method: 'DELETE',
     headers: {
       Accept: 'application/json',

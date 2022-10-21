@@ -1,21 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {Redirect, Route, Switch, useHistory} from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
+
 import {CurrentUserContext} from "../../context/CurrentUserContext";
 import {AppContext} from "../../context/AppContext";
+import {moviesApi} from '../../utils/MoviesApi';
 
 import Main from "../Main/Main";
 import Login from "../Login/Login";
+import Register from "../Register/Register";
 import Profile from "../Profile/Profile";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
-import {moviesApi} from '../../utils/MoviesApi';
+
 import * as mainApi from '../../utils/MainApi';
 import * as auth from '../../utils/Auth';
-import Register from "../Register/Register";
 
 const App = () => {
   const [moviesCards, setMoviesCards] = useState([]);
@@ -33,7 +35,7 @@ const App = () => {
 
   const history = useHistory();
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (loggedIn) {
       setIsCardsLoading(true);
       moviesApi
@@ -49,7 +51,7 @@ const App = () => {
     }
   }, [loggedIn]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     checkToken();
     if (loggedIn) {
       history.push('/movies');
@@ -111,11 +113,8 @@ const App = () => {
         const nameEN = item.nameEN ? item.nameEN : item.nameRU;
         const movieNameEN = nameEN.toLowerCase();
         const movieNameRU = item.nameRU.toLowerCase();
-        const movieDescription = item.description.toLowerCase();
         const searchMovieName = movie.movieName.toLowerCase();
-        return movieNameRU.includes(searchMovieName) ||
-          movieNameEN.includes(searchMovieName) ||
-          movieDescription.includes(searchMovieName);
+        return movieNameRU.includes(searchMovieName) || movieNameEN.includes(searchMovieName);
       });
       setIsCardsLoading(false);
       if (searchMovies[0]) {

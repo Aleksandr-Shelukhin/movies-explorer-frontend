@@ -7,7 +7,10 @@
 }
 
 .movies__list-preloader {
-    position: relative;
+    position: absolute;
+    top: -80px;
+    left: 0;
+    right: 0;
 }
 
 .movies__more-btn {
@@ -34,6 +37,15 @@
     display: block;
 }
 
+.movies__list-error-message {
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-size-adjust: 100%;
+    color: var(--accent-magenta);
+    text-align: center;
+}
+
 @media screen and (max-width: 991px) {
     .movies__list {
         grid-template-columns: repeat(3, 1fr);
@@ -51,6 +63,14 @@
     .movies__list {
         grid-template-columns: repeat(1, 1fr);
         row-gap: 16px;
+    }
+
+    .movies__list-preloader {
+        top: -50px;
+    }
+
+    .movies__list-error-message {
+        font-size: 12px;
     }
 
     .movies__more-btn {
