@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
 import MoviesCard from "../MoviesCard/MoviesCard";
@@ -14,7 +14,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
     isCardsLoading,
     errorMessageMovies,
     errorMessageSavedMovies,
-    savedMovies } = React.useContext(AppContext);
+    savedMovies } = useContext(AppContext);
   const width = windowWidth();
 
   const [cards, setCards] = useState(0);
@@ -22,13 +22,13 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
 
   useEffect(() => {
     function getCards() {
-      if (width > 1200) {
+      if (width > 768) {
         setCards(12);
         setMoreCards(3);
-      } else if (width <= 1200 && width > 750) {
+      } else if (width <= 768 && width > 480) {
         setCards(8);
         setMoreCards(2);
-      } else if (width <= 750) {
+      } else if (width <= 480) {
         setCards(5);
         setMoreCards(1);
       }
@@ -43,18 +43,18 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
   return (
     <div className="movies">
       <div className="container container_type_movie-page">
+        <div className="movies__list-preloader">
+          {errorMessageMovies && (
+            <p className="movies__list-error-message">{errorMessageMovies}</p>
+          )}
+          {isCardsLoading && <Preloader />}
+        </div>
         <div className="movies__list">
           { moviesRoute && (
             <>
-              <div className="movies__list-preloader">
-                {errorMessageMovies && (
-                  <p className="movies__list-error-message">{errorMessageMovies}</p>
-                )}
-                {isCardsLoading && <Preloader />}
-              </div>
               {moviesCards.map((card) => (
                 <MoviesCard
-                  key={card._id}
+                  key={card.id}
                   card={card}
                   saveMovie={saveMovie}
                   deleteMovie={deleteMovie}
@@ -72,7 +72,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
               </div>
               {savedMovies.map((card) => (
                 <MoviesCard
-                  key={card._id}
+                  key={card.id}
                   card={card}
                   saveMovie={saveMovie}
                   deleteSavedMovie={deleteSavedMovie}

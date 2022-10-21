@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect} from 'react';
 import {Link} from "react-router-dom";
 
 import formValidation from '../../hooks/formValidation'
@@ -7,9 +7,9 @@ import { AppContext } from "../../context/AppContext";
 const Login = ({ handleLogin, setAuthErrorMessage }) => {
   const { values, handleChange, errors, isValid, resetForm } = formValidation();
   const { email, password } = values;
-  const { authErrorMessage, isDisabledForm } = React.useContext(AppContext);
+  const { authErrorMessage, isDisabledForm } = useContext(AppContext);
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       setAuthErrorMessage(null);
     };

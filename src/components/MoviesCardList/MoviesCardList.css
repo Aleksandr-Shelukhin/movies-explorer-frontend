@@ -6,6 +6,10 @@
     gap: 20px 20px;
 }
 
+.movies__list-preloader {
+    position: relative;
+}
+
 .movies__more-btn {
     margin: 40px auto 0;
     padding: 10px 148px;

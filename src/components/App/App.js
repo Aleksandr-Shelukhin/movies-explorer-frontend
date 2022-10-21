@@ -289,8 +289,8 @@ const App = () => {
               loggedIn={loggedIn}
               updateUser={handleUpdateUserInfo}
               signOut={handleLogout}
-              updateMessage={setUpdateMessage}
-              updateErrorMessage={setUpdateErrorMessage}
+              setUpdateMessage={setUpdateMessage}
+              setUpdateErrorMessage={setUpdateErrorMessage}
             />
             <Route path='/signin'>
               <Login handleLogin={handleLogin} setAuthErrorMessage={setAuthErrorMessage} />
