@@ -1,9 +1,13 @@
 #  Дипломный проект: Сервис по поиску информации о фильмах "Movie Explorer"
 Это frontend сервиса - адаптивный сайт с инфраструктурой пакета CRA
 
+URL приложения:: [Movie Explorer](https://alex-shelukhin-movies.nomorepartiesxyz.ru/)  
+
 
 Макет: [Яндекс.Диск](https://disk.yandex.ru/d/qn4UzDPRPlceFQ)  
-Сылка на PullRequest: [Git](https://github.com/Aleksandr-Shelukhin/movies-explorer-frontend/pull/2)  
+
+Сылка на PullRequest: [Git](https://github.com/Aleksandr-Shelukhin/movies-explorer-frontend/pull/2)
+
 Сылка на ветку Level-3: [level-3](https://github.com/Aleksandr-Shelukhin/movies-explorer-frontend/tree/level-3)  
 
 ---
