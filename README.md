@@ -3,6 +3,7 @@
 
 
 Макет: [Яндекс.Диск](https://disk.yandex.ru/d/qn4UzDPRPlceFQ)  
+Сылка на PullRequest: [Git-level-3](https://github.com/Aleksandr-Shelukhin/movies-explorer-frontend/pull/2)  
 
 ---
 
