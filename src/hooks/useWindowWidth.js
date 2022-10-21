@@ -1,6 +1,6 @@
-import React, { useState, useLayoutEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 
-const windowWidth = () => {
+const useWindowWidth = () => {
   const [width, setWidth] = useState(0);
 
   useLayoutEffect(() => {
@@ -15,4 +15,4 @@ const windowWidth = () => {
   return width;
 };
 
-export default windowWidth;
+export default useWindowWidth;

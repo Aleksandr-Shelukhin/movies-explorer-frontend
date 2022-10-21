@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import {Link} from "react-router-dom";
 
-import formValidation from '../../hooks/formValidation'
+import useFormValidation from '../../hooks/useFormValidation'
 import { AppContext } from "../../context/AppContext";
 
 const Register = ({ register, setAuthErrorMessage }) => {
-  const { values, handleChange, errors, isValid, resetForm } = formValidation();
+  const { values, handleChange, errors, isValid, resetForm } = useFormValidation();
   const { name, email, password } = values;
   const { authErrorMessage, isDisabledForm } = useContext(AppContext);
 

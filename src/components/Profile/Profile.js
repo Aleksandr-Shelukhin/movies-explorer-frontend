@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 
-import formValidation from '../../hooks/formValidation'
+import useFormValidation from '../../hooks/useFormValidation'
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { AppContext } from "../../context/AppContext";
 import Header from "../Header/Header";
 
 const Profile = ({ updateUser, signOut, setUpdateMessage, setUpdateErrorMessage }) => {
-  const { values, handleChange, errors, isValid, setValues, resetForm } = formValidation();
+  const { values, handleChange, errors, isValid, setValues, resetForm } = useFormValidation();
   const { name, email } = values;
   const [buttonValid, setButtonValid] = useState(true);
   const currentUser = useContext(CurrentUserContext);

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import FilterCheckBox from "../FilterCheckBox/FilterCheckBox";
-import formValidation from '../../hooks/formValidation'
+import useFormValidation from '../../hooks/useFormValidation'
 
 const SearchForm = ({ searchMovie, filterShortMovies }) => {
-  const { values, handleChange, isValid, resetForm } = formValidation();
+  const { values, handleChange, isValid, resetForm } = useFormValidation();
   const { name } = values;
   const [searchErrorMessage, setSearchErrorMessage] = useState(null);
 

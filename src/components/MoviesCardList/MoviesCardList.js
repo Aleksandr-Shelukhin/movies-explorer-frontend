@@ -3,7 +3,7 @@ import { useRouteMatch } from 'react-router-dom';
 
 import MoviesCard from "../MoviesCard/MoviesCard";
 import Preloader from '../Preloader/Preloader';
-import windowWidth from "../../hooks/windowWidth";
+import useWindowWidth from "../../hooks/useWindowWidth";
 import { AppContext } from '../../context/AppContext';
 
 const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
@@ -15,7 +15,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
     errorMessageMovies,
     errorMessageSavedMovies,
     savedMovies } = useContext(AppContext);
-  const width = windowWidth();
+  const width = useWindowWidth();
 
   const [cards, setCards] = useState(0);
   const [moreCards, setMoreCards] = useState(0);
