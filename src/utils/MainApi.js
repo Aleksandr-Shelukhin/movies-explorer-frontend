@@ -47,7 +47,6 @@ export const getMoviesInfo = () => {
 };
 
 export const createMovie = (data) => {
-  console.log(data)
   return fetch(`${mainApiBaseUrl}/movies`, {
     method: 'POST',
     headers: {

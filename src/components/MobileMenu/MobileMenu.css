@@ -116,6 +116,12 @@
     transform: translate(-50%, -50%) rotate(-45deg);
 }
 
+@media screen and (max-width: 768px) {
+    .mobile-menu__link {
+        margin: 0 0 28px 0;
+    }
+}
+
 @media screen and (max-width: 576px) {
     .mobile-menu {
         padding-bottom: 34px;

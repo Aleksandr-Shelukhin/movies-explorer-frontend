@@ -9,10 +9,10 @@ const MobileMenu = ({ menuActive, setMenuActive }) => {
     <div className={ menuActive ? "mobile-menu mobile-menu_active" : "mobile-menu"}>
       <nav className="mobile-menu__nav">
         <Link to="/" className="mobile-menu__link transition-on-hover">Главная</Link>
-        <Link to="/movies" className={`header__link ${isMovies ? 'header__link_active' : ''} transition-on-hover`}>Фильмы</Link>
-        <Link to="/saved-movies" className={`header__link ${isSavedMovies ? 'header__link_active' : ''} transition-on-hover`}>Сохранённые фильмы</Link>
+        <Link to="/movies" className={`header__link header__link_mobile ${isMovies ? 'header__link_active-mobile' : ''} transition-on-hover`}>Фильмы</Link>
+        <Link to="/saved-movies" className={`header__link header__link_mobile ${isSavedMovies ? 'header__link_active-mobile' : ''} transition-on-hover`}>Сохранённые фильмы</Link>
       </nav>
-      <Link to="/" className="mobile-menu__link-profile transition-on-hover">Аккаунт</Link>
+      <Link to="/profile" className="mobile-menu__link-profile transition-on-hover">Аккаунт</Link>
       <div
         className="mobile-menu__close-button transition-on-hover"
         onClick={() => setMenuActive(!menuActive)}

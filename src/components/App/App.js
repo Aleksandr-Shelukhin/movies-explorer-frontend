@@ -36,6 +36,10 @@ const App = () => {
   const history = useHistory();
 
   useEffect(() => {
+    localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
+  })
+
+  useEffect(() => {
     if (loggedIn) {
       setIsCardsLoading(true);
       moviesApi
@@ -95,6 +99,7 @@ const App = () => {
     localStorage.removeItem('jwt');
     localStorage.removeItem('lastSearchMovies');
     localStorage.removeItem('lastSavedMovies');
+    localStorage.removeItem('loggedIn');
     setLoggedIn(false);
     setMoviesCards([]);
     setSavedMovies([]);
@@ -193,7 +198,7 @@ const App = () => {
         localStorage.setItem('lastSaved', JSON.stringify(newSavedMovies));
       })
       .catch((error) => {
-        setErrorMessageMovies(`Не удалось удалить фильм: ${error}`);
+        setErrorMessageMovies(`${error} - Можно удалять только свои фильмы`);
         console.log(error);
       });
   }
@@ -218,7 +223,7 @@ const App = () => {
       .updateUserInfo(data)
       .then((data) => {
         setCurrentUser(data);
-        setUpdateMessage('Фильм сохранен');
+        setUpdateMessage('Профиль успешно обнавлен');
       })
       .catch((error) => {
         setUpdateErrorMessage(error);
@@ -258,7 +263,7 @@ const App = () => {
         <div className="page">
           <Switch>
             <Route exact path='/'>
-              <Header/>
+              <Header loggedIn={loggedIn}/>
               <Main/>
               <Footer/>
             </Route>
