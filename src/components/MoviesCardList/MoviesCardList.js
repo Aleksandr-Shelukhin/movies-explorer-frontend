@@ -22,18 +22,18 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
 
   useEffect(() => {
     function getCards() {
-      if (width > 991) {
+      if (width > 1280) {
         setCards(16);
         setMoreCards(8);
-      } else if (width > 768 && width <= 991) {
+      } else if (width > 768 && width <= 1280) {
         setCards(12);
         setMoreCards(3);
-      } else if (width <= 768 && width > 480) {
+      } else if (width > 480 && width <= 768) {
         setCards(8);
         setMoreCards(2);
       } else if (width <= 480) {
         setCards(5);
-        setMoreCards(1);
+        setMoreCards(2);
       }
     }
     getCards();
