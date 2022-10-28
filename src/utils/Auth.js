@@ -31,7 +31,7 @@ export const signin = (email, password) => {
     .then(getServerResponse)
     .then((data) => {
       if (data.token) {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('jwt', data.token);
         return data;
       }})
 }

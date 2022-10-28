@@ -19,7 +19,6 @@ const SearchForm = ({ searchMovie, filterShortMovies }) => {
       setSearchErrorMessage('введиет название фильма');
     }
   }
-
   useEffect(() => {
     return () => {
       setSearchErrorMessage(null)

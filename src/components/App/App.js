@@ -37,7 +37,14 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
-  })
+  } );
+
+  useEffect(() => {
+    const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
+    setMoviesCards(lastSearch ?? []);
+  }, []);
+
+
 
   useEffect(() => {
     if (loggedIn) {
@@ -45,7 +52,7 @@ const App = () => {
       moviesApi
         .getMoviesInfo()
         .then((movies) => {
-          localStorage.setItem('lastSearch', JSON.stringify(movies));
+            localStorage.setItem('movies', JSON.stringify(movies));
         })
         .catch((error) => {
           setErrorMessageMovies('на сервере произошла ошибка, попробуйте повторить запрос');
@@ -96,10 +103,7 @@ const App = () => {
   }
 
   function handleLogout() {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('lastSearchMovies');
-    localStorage.removeItem('lastSavedMovies');
-    localStorage.removeItem('loggedIn');
+    localStorage.clear()
     setLoggedIn(false);
     setMoviesCards([]);
     setSavedMovies([]);
@@ -112,7 +116,9 @@ const App = () => {
     setErrorMessageMovies(null);
     setMoviesCards([]);
     setIsCardsLoading(true);
-    const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearch'));
+    const localChecked = JSON.parse(localStorage.getItem('isChecked'));
+    const lastSearchMovies = JSON.parse(localStorage.getItem('movies'));
+    console.log(lastSearchMovies)
     if (lastSearchMovies) {
       const searchMovies = lastSearchMovies.filter((item) => {
         const nameEN = item.nameEN ? item.nameEN : item.nameRU;
@@ -121,9 +127,11 @@ const App = () => {
         const searchMovieName = movie.movieName.toLowerCase();
         return movieNameRU.includes(searchMovieName) || movieNameEN.includes(searchMovieName);
       });
+      handleFilterShortMovies(localChecked)
       setIsCardsLoading(false);
       if (searchMovies[0]) {
         setMoviesCards(searchMovies);
+        localStorage.setItem('lastSearch', JSON.stringify(searchMovies));
       } else {
         setErrorMessageMovies('Ничего не найдено');
         setMoviesCards([]);
@@ -133,6 +141,7 @@ const App = () => {
       setErrorMessageMovies('на сервере произошла ошибка, попробуйте повторить запрос');
     }
   }
+
 
   function handleSearchSavedMovie(movie) {
     setErrorMessageSavedMovies(null);
@@ -223,7 +232,7 @@ const App = () => {
       .updateUserInfo(data)
       .then((data) => {
         setCurrentUser(data);
-        setUpdateMessage('Профиль успешно обнавлен');
+        setUpdateMessage('Профиль успешно обновлен');
       })
       .catch((error) => {
         setUpdateErrorMessage(error);

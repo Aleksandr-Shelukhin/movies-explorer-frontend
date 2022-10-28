@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import Header from "../Header/Header";
@@ -12,7 +12,8 @@ const Movies = (
     filterShortMovies,
     errorMessageMovies,
   }) => {
-  React.useEffect(() => {
+
+  useEffect(() => {
   return () => {
     errorMessageMovies(null);
   };

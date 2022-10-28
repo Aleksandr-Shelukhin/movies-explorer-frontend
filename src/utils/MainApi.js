@@ -25,7 +25,7 @@ export const updateUserInfo = (data) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization:
-        "Bearer " + localStorage.getItem("token") || "",
+        "Bearer " + localStorage.getItem("jwt") || "",
     },
     body: JSON.stringify({
       name: data.name,
@@ -41,7 +41,7 @@ export const getMoviesInfo = () => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization:
-        "Bearer " + localStorage.getItem("token") || "",
+        "Bearer " + localStorage.getItem("jwt") || "",
     },
   }).then(getServerResponse);
 };
@@ -53,7 +53,7 @@ export const createMovie = (data) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization:
-        "Bearer " + localStorage.getItem("token") || "",
+        "Bearer " + localStorage.getItem("jwt") || "",
     },
     body: JSON.stringify({
       country: data.country,
@@ -78,7 +78,7 @@ export const deleteMovie = (id) => {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       Authorization:
-        "Bearer " + localStorage.getItem("token") || "",
+        "Bearer " + localStorage.getItem("jwt") || "",
     },
   }).then(getServerResponse);
 };
