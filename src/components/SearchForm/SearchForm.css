@@ -8,6 +8,10 @@
     margin-bottom: 40px;
 }
 
+.search__form {
+    position: relative;
+}
+
 .search__form-input {
     padding: 14px 46px 14px 22px;
     height: 46px;
@@ -60,6 +64,18 @@
     background-image: url('../../images/search-icon.svg');
     background-repeat: no-repeat;
     background-position: center center;
+}
+
+.search__search-error {
+    position: absolute;
+    left: 26px;
+    top: 55px;
+
+    font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    text-size-adjust: 100%;
+    color: var(--accent-magenta);
 }
 
 .search__line {

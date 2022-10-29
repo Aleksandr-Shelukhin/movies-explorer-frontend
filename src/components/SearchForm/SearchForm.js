@@ -16,7 +16,7 @@ const SearchForm = ({ searchMovie, filterShortMovies }) => {
       });
       setSearchErrorMessage(null)
     } else {
-      setSearchErrorMessage('введиет название фильма');
+      setSearchErrorMessage('введите название фильма');
     }
   }
   useEffect(() => {
@@ -45,7 +45,6 @@ const SearchForm = ({ searchMovie, filterShortMovies }) => {
               name="name"
               minLength="1"
               maxLength="100"
-              required
             />
             <button className="search__form-button transition-on-hover" type="submit"></button>
           </div>

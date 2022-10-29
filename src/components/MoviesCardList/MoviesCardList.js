@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect, useContext, useRef} from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
 import MoviesCard from "../MoviesCard/MoviesCard";
@@ -16,6 +16,13 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
     errorMessageSavedMovies,
     savedMovies } = useContext(AppContext);
   const width = useWindowWidth();
+
+  const movies = useRef();
+  if (savedMoviesRoute && savedMoviesRoute.path) {
+    movies.current = savedMovies;
+  } else {
+    movies.current = moviesCards;
+  }
 
   const [cards, setCards] = useState(0);
   const [moreCards, setMoreCards] = useState(0);
@@ -83,14 +90,14 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
           )}
 
         </div>
-        <button
+        {movies.current.length >= cards && <button
           className={`movies__more-btn 
           ${moviesCards.length >= cards
-          ? 'more-movies-card_type_active'
-          : ''} transition-on-hover`}
+            ? 'more-movies-card_type_active'
+            : ''} transition-on-hover`}
           type="button"
           onClick={getMoreCards}
-        >Ещё</button>
+        >Ещё</button>}
       </div>
     </div>
   );

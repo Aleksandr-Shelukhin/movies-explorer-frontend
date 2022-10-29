@@ -29,14 +29,14 @@
 }
 
 .preloader__container {
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     position: relative;
 }
 
 .preloader__round {
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     position: absolute;
     top: 0;
     left: 0;
@@ -47,8 +47,8 @@
 .preloader__round::after,
 .preloader__round::before {
     content: '';
-    width: 80px;
-    height: 80px;
+    width: 50px;
+    height: 50px;
     position: absolute;
     top: 0;
     left: 0;
