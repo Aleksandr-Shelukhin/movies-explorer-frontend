@@ -4,13 +4,14 @@ import AboutProject from "../AboutProject/AboutProject";
 import Techs from "../Techs/Techs";
 import AboutMe from "../AboutMe/AboutMe";
 
-const Main = () => {
+const Main = ({ checkToken }) => {
+
   return (
     <main className="main">
-      <Promo/>
-      <AboutProject/>
-      <Techs/>
-      <AboutMe/>
+      <Promo />
+      <AboutProject />
+      <Techs />
+      <AboutMe />
     </main>
   );
 };

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useContext, useRef} from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 
 import MoviesCard from "../MoviesCard/MoviesCard";
@@ -63,7 +63,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
           {isCardsLoading && <Preloader />}
         </div>
         <div className="movies__list">
-          { moviesRoute && (
+          {moviesRoute && (
             <>
               {moviesCards.slice(0, cards).map((card) => (
                 <MoviesCard
@@ -75,10 +75,9 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
               ))}
             </>
           )}
-          { savedMoviesRoute && (
+          {savedMoviesRoute && (
             <>
-
-              {savedMovies.map((card) => (
+              {savedMovies.slice(0, cards).map((card) => (
                 <MoviesCard
                   key={card._id}
                   card={card}
@@ -93,8 +92,8 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
         {movies.current.length >= cards && <button
           className={`movies__more-btn 
           ${moviesCards.length >= cards
-            ? 'more-movies-card_type_active'
-            : ''} transition-on-hover`}
+              ? 'more-movies-card_type_active'
+              : ''} transition-on-hover`}
           type="button"
           onClick={getMoreCards}
         >Ещё</button>}

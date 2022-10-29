@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import {Redirect, Route, Switch, useHistory} from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute"
 
-import {CurrentUserContext} from "../../context/CurrentUserContext";
-import {AppContext} from "../../context/AppContext";
-import {moviesApi} from '../../utils/MoviesApi';
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { AppContext } from "../../context/AppContext";
+import { moviesApi } from '../../utils/MoviesApi';
 
 import Main from "../Main/Main";
 import Login from "../Login/Login";
@@ -37,7 +37,7 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
-  } );
+  });
 
   useEffect(() => {
     const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
@@ -47,18 +47,21 @@ const App = () => {
 
 
   useEffect(() => {
-    if (loggedIn) {
-      setIsCardsLoading(true);
-      moviesApi
-        .getMoviesInfo()
-        .then((movies) => {
+    const movies = localStorage.getItem('movies');
+    if (!movies) {
+      if (loggedIn) {
+        setIsCardsLoading(true);
+        moviesApi
+          .getMoviesInfo()
+          .then((movies) => {
             localStorage.setItem('movies', JSON.stringify(movies));
-        })
-        .catch((error) => {
-          setErrorMessageMovies('на сервере произошла ошибка, попробуйте повторить запрос');
-          console.log(error);
-        })
-        .finally(() => setIsCardsLoading(false));
+          })
+          .catch((error) => {
+            setErrorMessageMovies('на сервере произошла ошибка, попробуйте повторить запрос');
+            console.log(error);
+          })
+          .finally(() => setIsCardsLoading(false));
+      }
     }
   }, [loggedIn]);
 
@@ -83,7 +86,18 @@ const App = () => {
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      setLoggedIn(true);
+      auth.validateToken(jwt)
+        .then(() => {
+          setLoggedIn(true);
+        })
+        .catch(() => {
+          setLoggedIn(false);
+          localStorage.clear();
+          history.push('/signin');
+        })
+    } else {
+      setLoggedIn(false);
+      localStorage.clear();
     }
   }
 
@@ -134,6 +148,7 @@ const App = () => {
       if (searchMovies[0]) {
         setMoviesCards(searchMovies);
         localStorage.setItem('lastSearch', JSON.stringify(searchMovies));
+        setErrorMessageMovies('');
       } else {
         setErrorMessageMovies('Ничего не найдено');
         setMoviesCards([]);
@@ -272,9 +287,9 @@ const App = () => {
         <div className="page">
           <Switch>
             <Route exact path='/'>
-              <Header loggedIn={loggedIn}/>
-              <Main/>
-              <Footer/>
+              <Header loggedIn={loggedIn} />
+              <Main checkToken={checkToken} />
+              <Footer />
             </Route>
             <ProtectedRoute
               path='/movies'
@@ -316,12 +331,12 @@ const App = () => {
               />
             </Route>
             <Route path='*'>
-              <PageNotFound/>
+              <PageNotFound />
             </Route>
           </Switch>
         </div>
       </AppContext.Provider>
-    </CurrentUserContext.Provider>  );
+    </CurrentUserContext.Provider>);
 };
 
 export default App;

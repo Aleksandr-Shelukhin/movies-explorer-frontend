@@ -8,7 +8,7 @@ class Api {
 
 
   _getServerResponse(res) { // проверка состояние сервера
-    if(res.ok) {
+    if (res.ok) {
       return Promise.resolve(res.json()); //если ответ ОК - получаем данные
     }
     return Promise.reject(`Ошибка: ${res.status}`); //если ответ не ОК - выводим код ошибки
