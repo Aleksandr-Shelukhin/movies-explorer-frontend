@@ -16,7 +16,7 @@ const SearchForm = ({ searchMovie, filterShortMovies }) => {
       });
       setSearchErrorMessage(null)
     } else {
-      setSearchErrorMessage('введите название фильма');
+      setSearchErrorMessage('Нужно ввести ключевое слово');
     }
   }
   useEffect(() => {
