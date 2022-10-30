@@ -67,14 +67,17 @@
 }
 
 .search__search-error {
+    width: 100%;
     position: absolute;
-    left: 26px;
-    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 200px;
 
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-size: 16px;
     font-weight: 400;
     text-size-adjust: 100%;
+    text-align: center;
     color: var(--accent-magenta);
 }
 
@@ -93,6 +96,11 @@
     .search__line {
         margin-top: 50px;
     }
+
+    .search__search-error {
+        top: 170px;
+
+    }
 }
 
 @media screen and (max-width: 576px) {
@@ -104,5 +112,10 @@
         padding-right: 19px;
 
         font-size: 11px;
+    }
+
+    .search__search-error {
+        font-size: 13px;
+
     }
 }
