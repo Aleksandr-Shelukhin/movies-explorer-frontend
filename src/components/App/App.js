@@ -65,7 +65,7 @@ const App = () => {
     }
   }, [loggedIn]);
 
-  useEffect(() => {
+  useEffect(() => { // провекрка токена
     checkToken();
     if (loggedIn) {
       history.push('/movies');
@@ -126,23 +126,24 @@ const App = () => {
   }
 
   function handleSearchMovie(movie) {
+    console.log(movie)
     setIsCardsLoading(true);
     setErrorMessageMovies(null);
     setMoviesCards([]);
     setIsCardsLoading(true);
     const localChecked = JSON.parse(localStorage.getItem('isChecked'));
-    const lastSearchMovies = JSON.parse(localStorage.getItem('movies'));
-    if (lastSearchMovies) {
-      let searchMovies = lastSearchMovies.filter((item) => {
+    const initialMovies = JSON.parse(localStorage.getItem('movies'));
+    if (initialMovies) {
+      let searchMovies = initialMovies.filter((item) => {
         const nameEN = item.nameEN ? item.nameEN : item.nameRU;
         const movieNameEN = nameEN.toLowerCase();
         const movieNameRU = item.nameRU.toLowerCase();
-        const searchMovieName = movie.movieName.toLowerCase();
+        const searchMovieName = movie.toLowerCase();
         return movieNameRU.includes(searchMovieName) || movieNameEN.includes(searchMovieName);
       });
       handleFilterShortMovies(localChecked)
-      if (localChecked && lastSearchMovies[0]) {
-        searchMovies = lastSearchMovies.filter((item) => item.duration <= 40)
+      if (localChecked && initialMovies[0]) {
+        searchMovies = initialMovies.filter((item) => item.duration <= 40)
       }
       setIsCardsLoading(false);
       if (searchMovies[0]) {
@@ -154,7 +155,7 @@ const App = () => {
         setMoviesCards([]);
       }
     }
-    if (!lastSearchMovies) {
+    if (!initialMovies) {
       setErrorMessageMovies('на сервере произошла ошибка, попробуйте повторить запрос');
     }
   }
@@ -168,7 +169,7 @@ const App = () => {
       const nameEN = item.nameEN ? item.nameEN : item.nameRU;
       const movieNameEN = nameEN.toLowerCase();
       const movieNameRU = item.nameRU.toLowerCase();
-      const searchMovieName = movie.movieName.toLowerCase();
+      const searchMovieName = movie.toLowerCase();
       return movieNameRU.includes(searchMovieName) ||
         movieNameEN.includes(searchMovieName);
     });
@@ -183,8 +184,11 @@ const App = () => {
 
   function handleFilterShortMovies(isChecked) {
     if (isChecked && moviesCards[0]) {
+      console.log(moviesCards)
       const shortMoviesCards = moviesCards.filter((item) => item.duration <= 40);
+      localStorage.setItem('setShortMovies', JSON.stringify(shortMoviesCards));
       setMoviesCards(shortMoviesCards);
+      console.log(shortMoviesCards)
     }
     if (!isChecked && moviesCards[0]) {
       const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearch'));
@@ -269,7 +273,6 @@ const App = () => {
       })
       .finally(() => setIsDisabledForm(false));
   }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <AppContext.Provider
@@ -306,7 +309,7 @@ const App = () => {
               component={SavedMovies}
               loggedIn={loggedIn}
               setSavedMovies={setSavedMovies}
-              searchMovie={handleSearchSavedMovie}
+              searchSavedMovie={handleSearchSavedMovie}
               deleteSavedMovie={handleDeleteMovie}
               filterShortMovies={handleFilterSavedShortMovies}
               errorMessageSavedMovies={setErrorMessageSavedMovies}

@@ -1,63 +1,122 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Route } from "react-router-dom";
+import { useForm } from 'react-hook-form';
 
 import FilterCheckBox from "../FilterCheckBox/FilterCheckBox";
-import useFormValidation from '../../hooks/useFormValidation'
 
-const SearchForm = ({ searchMovie, filterShortMovies }) => {
-  const { values, handleChange, isValid, resetForm } = useFormValidation();
-  const { name } = values;
-  const [searchErrorMessage, setSearchErrorMessage] = useState(null);
+const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
 
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    if (isValid && name !== '') {
-      searchMovie({
-        movieName: name,
-      });
-      setSearchErrorMessage(null)
-    } else {
-      setSearchErrorMessage('Нужно ввести ключевое слово');
-    }
-  }
-  useEffect(() => {
-    return () => {
-      setSearchErrorMessage(null)
-      resetForm();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const [allMovies, setAllMovies] = useState(localStorage.getItem('searchQueryMovies') || '');
+  const [savedMovies, setSavedMovies] = useState(localStorage.getItem('searchQuerySavedMovies') || '');
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    mode: 'onChange',
+    defaultValues: { allMoviesQuery: allMovies },
+  });
+
+  const {
+    register: registerSavedMoviesForm,
+    handleSubmit: handleSubmitSavedMoviesForm,
+    formState: { errors: errorsSavedMoviesForm },
+  } = useForm({
+    mode: 'onChange',
+    defaultValues: { allSavedMoviesQuery: savedMovies },
+  });
+
+  const moviesInput = (evt) => {
+    setAllMovies(localStorage.setItem('searchQueryMovies', evt.target.value));
+  };
+
+  const savedMoviesInput = (evt) => {
+    setSavedMovies(localStorage.setItem('searchQuerySavedMovies', evt.target.value));
+  };
+
+  const handleSubmitAllMovie = (data) => {
+    console.log(data.allMoviesQuery)
+    searchMovie(data.allMoviesQuery);
+
+  };
+
+  const handleSubmitAllSavedMovie = (data) => {
+    console.log(data.allSavedMoviesQuery)
+    searchSavedMovie(data.allSavedMoviesQuery);
+  };
 
   return (
+    <>
+    <Route path='/movies'>
+      <div className="search">
+        <div className="container container_type_movie-page">
+          <form
+            key={1}
+            onSubmit={handleSubmit(handleSubmitAllMovie)}
+            className="search__form"
+            id='all-movies'
+          >
+            <div className="search__wrapper">
+              <input
+                {...register('allMoviesQuery', {
+                  required: 'Ввести название фильма обязательно',
+                })}
+                className="search__form-input"
+                placeholder='Фильм'
+                onInput={moviesInput}
+              />
+              <button
+                className="search__form-button transition-on-hover"
+                type="submit"
+                form='all-movies'>
+
+              </button>
+            </div>
+            <span className="search__search-error">
+              {errors?.allMoviesQuery?.message}
+            </span>
+          </form>
+          <FilterCheckBox filterShortMovies={filterShortMovies}/>
+          <hr className="search__line"/>
+        </div>
+      </div>
+    </Route>
+
+  <Route path='/saved-movies'>
     <div className="search">
       <div className="container container_type_movie-page">
         <form
+          key={2}
+          onSubmit={handleSubmitSavedMoviesForm(handleSubmitAllSavedMovie)}
           className="search__form"
-          name="search-form"
-          onSubmit={handleSubmit}
+          id='all-saved-movies'
         >
           <div className="search__wrapper">
             <input
+              {...registerSavedMoviesForm('allSavedMoviesQuery', {
+                required: 'Ввести название фильма обязательно',
+              })}
               className="search__form-input"
-              onChange={handleChange}
-              value={name || ''}
-              type="text"
-              placeholder="Фильм"
-              name="name"
-              minLength="1"
-              maxLength="100"
+              placeholder='Фильм'
+              onInput={savedMoviesInput}
             />
-            <button className="search__form-button transition-on-hover" type="submit"></button>
+            <button
+              className="search__form-button transition-on-hover"
+              type="submit"
+              form='all-saved-movies'>
+            </button>
           </div>
           <span className="search__search-error">
-            {searchErrorMessage ? `${searchErrorMessage}` : ''}
-          </span>
+              {errorsSavedMoviesForm?.allSavedMoviesQuery?.message}
+            </span>
         </form>
         <FilterCheckBox filterShortMovies={filterShortMovies}/>
-
         <hr className="search__line"/>
       </div>
-
     </div>
+  </Route>
+    </>
   );
 };
 

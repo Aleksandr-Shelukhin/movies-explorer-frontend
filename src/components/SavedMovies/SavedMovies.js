@@ -8,6 +8,7 @@ const SavedMovies = (
   {
     setSavedMovies,
     searchMovie,
+    searchSavedMovie,
     deleteSavedMovie,
     filterShortMovies,
     errorMessageSavedMovies,
@@ -25,7 +26,10 @@ const SavedMovies = (
     <>
       <Header/>
       <main className="main">
-        <SearchForm searchMovie={searchMovie} filterShortMovies={filterShortMovies} />
+        <SearchForm
+          searchMovie={searchMovie}
+          searchSavedMovie={searchSavedMovie}
+          filterShortMovies={filterShortMovies} />
         <MoviesCardList deleteSavedMovie={deleteSavedMovie} />
       </main>
       <Footer/>

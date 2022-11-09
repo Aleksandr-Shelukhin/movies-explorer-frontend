@@ -7,6 +7,7 @@ import Footer from "../Footer/Footer";
 const Movies = (
   {
     searchMovie,
+    searchSavedMovies,
     saveMovie,
     deleteMovie,
     filterShortMovies,
@@ -26,6 +27,7 @@ const Movies = (
       <main className="main">
         <SearchForm
           searchMovie={searchMovie}
+          searchSavedMovies={searchSavedMovies}
           filterShortMovies={filterShortMovies}
         />
         <MoviesCardList
