@@ -126,7 +126,6 @@ const App = () => {
   }
 
   function handleSearchMovie(movie) {
-    console.log(movie)
     setIsCardsLoading(true);
     setErrorMessageMovies(null);
     setMoviesCards([]);
@@ -141,6 +140,7 @@ const App = () => {
         const searchMovieName = movie.toLowerCase();
         return movieNameRU.includes(searchMovieName) || movieNameEN.includes(searchMovieName);
       });
+      console.log('сабмит всех фильмов' + searchMovies)
       handleFilterShortMovies(localChecked)
       if (localChecked && initialMovies[0]) {
         searchMovies = initialMovies.filter((item) => item.duration <= 40)
@@ -173,6 +173,7 @@ const App = () => {
       return movieNameRU.includes(searchMovieName) ||
         movieNameEN.includes(searchMovieName);
     });
+    console.log('сабмит сохраненых фильмов' + filterMovies)
     setIsCardsLoading(false);
     if (filterMovies[0]) {
       setSavedMovies(filterMovies);
@@ -184,7 +185,6 @@ const App = () => {
 
   function handleFilterShortMovies(isChecked) {
     if (isChecked && moviesCards[0]) {
-      console.log(moviesCards)
       const shortMoviesCards = moviesCards.filter((item) => item.duration <= 40);
       localStorage.setItem('setShortMovies', JSON.stringify(shortMoviesCards));
       setMoviesCards(shortMoviesCards);
@@ -200,8 +200,11 @@ const App = () => {
   }
 
   function handleFilterSavedShortMovies(isChecked) {
+    console.log('Переключатель сохраненых фильмов: ' + isChecked)
+    console.log('Переключатель сохраненых фильмов: ' + savedMovies)
     if (isChecked) {
       const shortMoviesCards = savedMovies.filter((item) => item.duration <= 40);
+      localStorage.setItem('setShortSavedMovies', JSON.stringify(shortMoviesCards));
       setSavedMovies(shortMoviesCards);
     } else {
       const lastSavedMovies = JSON.parse(localStorage.getItem('lastSaved'));

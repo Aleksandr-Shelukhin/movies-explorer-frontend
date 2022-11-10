@@ -36,13 +36,11 @@ const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
   };
 
   const handleSubmitAllMovie = (data) => {
-    console.log(data.allMoviesQuery)
     searchMovie(data.allMoviesQuery);
 
   };
 
   const handleSubmitAllSavedMovie = (data) => {
-    console.log(data.allSavedMoviesQuery)
     searchSavedMovie(data.allSavedMoviesQuery);
   };
 
@@ -70,7 +68,6 @@ const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
                 className="search__form-button transition-on-hover"
                 type="submit"
                 form='all-movies'>
-
               </button>
             </div>
             <span className="search__search-error">
