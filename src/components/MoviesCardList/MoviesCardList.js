@@ -31,7 +31,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
     function getCards() {
       if (width > 1280) {
         setCards(16);
-        setMoreCards(8);
+        setMoreCards(4);
       } else if (width > 768 && width <= 1280) {
         setCards(12);
         setMoreCards(3);
@@ -40,7 +40,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
         setMoreCards(2);
       } else if (width <= 480) {
         setCards(5);
-        setMoreCards(2);
+        setMoreCards(1);
       }
     }
     getCards();
