@@ -7,7 +7,7 @@ import FilterCheckBox from "../FilterCheckBox/FilterCheckBox";
 const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
 
   const [allMovies, setAllMovies] = useState(localStorage.getItem('searchQueryMovies') || '');
-  const [savedMovies, setSavedMovies] = useState(localStorage.getItem('searchQuerySavedMovies') || '');
+  const [savedMovies, setSavedMovies] = useState('');
 
   const {
     register,
