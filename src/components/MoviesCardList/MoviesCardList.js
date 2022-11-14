@@ -64,7 +64,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie, savedMovies 
         <div className="movies__list">
           {moviesRoute && (
             <>
-              {moviesCards?.slice(0, cards).map((card) => (
+              {moviesCards.slice(0, cards).map((card) => (
                 <MoviesCard
                   key={card.id}
                   card={card}
@@ -76,7 +76,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie, savedMovies 
           )}
           {savedMoviesRoute && (
             <>
-              {savedMovies?.slice(0, cards).map((card) => (
+              {savedMovies.slice(0, cards).map((card) => (
                 <MoviesCard
                   key={card._id}
                   card={card}
