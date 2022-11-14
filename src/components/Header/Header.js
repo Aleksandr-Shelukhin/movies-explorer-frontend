@@ -10,7 +10,7 @@ const Header = ( props ) => {
   const isSavedMovies = useRouteMatch({ path: '/saved-movies', exact: false });
 
   //const loggedIn = JSON.parse(window.localStorage.getItem('loggedIn'))
-  console.log(loggedIn)
+
   return (
     <>
     <header className="header">

@@ -88,6 +88,7 @@ const App = () => {
       auth.validateToken(jwt)
         .then(() => {
           setLoggedIn(true);
+          console.log('setLoggedIn true')
         })
         .catch(() => {
           setLoggedIn(false);
@@ -98,6 +99,7 @@ const App = () => {
       setLoggedIn(false);
       localStorage.clear();
     }
+    console.log('Проверка токена')
   }
 
   function handleLogin({ email, password }) {
@@ -106,9 +108,9 @@ const App = () => {
       .signin(email, password)
       .then((data) => {
         localStorage.setItem('jwt', data.token);
-        checkToken();
+        //checkToken();
+        setLoggedIn(true);
         history.push('/movies');
-        console.log('логин')
       })
       .catch((error) => {
         setAuthErrorMessage(error);
