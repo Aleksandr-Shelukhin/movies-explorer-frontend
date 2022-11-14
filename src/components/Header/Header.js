@@ -2,14 +2,15 @@ import React, { useState } from 'react';
 import { Link, Route, useRouteMatch } from "react-router-dom";
 import MobileMenu from "../MobileMenu/MobileMenu";
 
-const Header = () => {
+const Header = ( props ) => {
+  const { loggedIn } = props
   const [menuActive, setMenuActive] = useState(false)
 
   const isMovies = useRouteMatch({ path: '/movies', exact: false });
   const isSavedMovies = useRouteMatch({ path: '/saved-movies', exact: false });
 
-  const loggedIn = JSON.parse(window.localStorage.getItem('loggedIn'))
-
+  //const loggedIn = JSON.parse(window.localStorage.getItem('loggedIn'))
+  console.log(loggedIn)
   return (
     <>
     <header className="header">

@@ -31,13 +31,12 @@ const App = () => {
   const [isDisabledForm, setIsDisabledForm] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({});
-  const [loggedIn, setLoggedIn] = useState(false);
-
+  const [loggedIn, setLoggedIn] = useState(localStorage.jwt || false);
   const history = useHistory();
 
-  useEffect(() => {
+  /*useEffect(() => {
     localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
-  });
+  });*/
 
   useEffect(() => {
     const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
@@ -68,7 +67,7 @@ const App = () => {
   useEffect(() => { // провекрка токена
     checkToken();
     if (loggedIn) {
-      history.push('/movies');
+      //history.push('/movies');
       Promise.all([mainApi.getUserInfo(), mainApi.getMoviesInfo()])
         .then(([user, data]) => {
           setCurrentUser(user);
@@ -108,6 +107,8 @@ const App = () => {
       .then((data) => {
         localStorage.setItem('jwt', data.token);
         checkToken();
+        history.push('/movies');
+        console.log('логин')
       })
       .catch((error) => {
         setAuthErrorMessage(error);
@@ -192,16 +193,18 @@ const App = () => {
       setMoviesCards(shortMoviesCards);
       console.log(shortMoviesCards)
     }
-    if (!isChecked && moviesCards[0]) {
+    if (!isChecked && moviesCards.length) {
       const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearch'));
       setMoviesCards(lastSearchMovies);
     }
-    if (!isChecked && !moviesCards[0]) {
+    if (!isChecked && !moviesCards.length) {
       const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearch'));
       setErrorMessageMovies('');
-      setMoviesCards(lastSearchMovies);
+      setMoviesCards([]);
+      //setMoviesCards(lastSearchMovies);
+      console.log(lastSearchMovies)
     }
-    if (!moviesCards[0]) {
+    if (!moviesCards.length) {
       setErrorMessageMovies('Ничего не найдено');
     }
   }
@@ -213,13 +216,15 @@ const App = () => {
       localStorage.setItem('setShortSavedMovies', JSON.stringify(shortMoviesCards));
       setSavedMovies(shortMoviesCards);
     }
-    if (!isChecked && savedMovies[0]) {
+    if (!isChecked && savedMovies.length) {
       const lastSavedMovies = JSON.parse(localStorage.getItem('lastSavedSearch'));
       setSavedMovies(lastSavedMovies);
     }
-    if (!isChecked && !savedMovies[0]) {
+    if (!isChecked && !savedMovies.length) {
       const lastSavedMovies = JSON.parse(localStorage.getItem('lastSavedSearch'));
       setSavedMovies(lastSavedMovies);
+      setErrorMessageMovies('');
+      console.log(lastSavedMovies)
     }
     if (!savedMovies.length) {
       setErrorMessageMovies('Ничего не найдено');
@@ -325,7 +330,7 @@ const App = () => {
               path='/saved-movies'
               component={SavedMovies}
               loggedIn={loggedIn}
-              setSavedMovies={setSavedMovies}
+              savedMovies={savedMovies}
               searchSavedMovie={handleSearchSavedMovie}
               deleteSavedMovie={handleDeleteMovie}
               filterShortMovies={handleFilterSavedShortMovies}
@@ -341,17 +346,18 @@ const App = () => {
               setUpdateErrorMessage={setUpdateErrorMessage}
             />
             <Route path='/signin'>
+              {loggedIn && <Redirect to="/movies" />}
               <Login handleLogin={handleLogin} setAuthErrorMessage={setAuthErrorMessage} />
-              {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
             </Route>
             <Route path='/signup'>
-              <Register
-                register={handleRegister}
-                setAuthErrorMessage={setAuthErrorMessage}
-              />
+              {loggedIn && <Redirect to="/movies" />}
+              <Register register={handleRegister} setAuthErrorMessage={setAuthErrorMessage} />
             </Route>
             <Route path='*'>
               <PageNotFound />
+            </Route>
+            <Route>
+              {loggedIn ? <Redirect to='/movies' /> : <Redirect to='/' />}
             </Route>
           </Switch>
         </div>

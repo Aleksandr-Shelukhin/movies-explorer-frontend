@@ -12,6 +12,7 @@ const Movies = (
     deleteMovie,
     filterShortMovies,
     errorMessageMovies,
+    loggedIn
   }) => {
 
   useEffect(() => {
@@ -23,7 +24,7 @@ const Movies = (
 
   return (
     <>
-      <Header/>
+      <Header loggedIn={loggedIn}/>
       <main className="main">
         <SearchForm
           searchMovie={searchMovie}

@@ -6,31 +6,32 @@ import Footer from "../Footer/Footer";
 
 const SavedMovies = (
   {
-    setSavedMovies,
+    savedMovies, // !!! поправить
     searchMovie,
     searchSavedMovie,
     deleteSavedMovie,
     filterShortMovies,
     errorMessageSavedMovies,
+    loggedIn
   }) => {
   useEffect(() => {
     return () => {
       errorMessageSavedMovies(null);
-      const lastSavedMovies = JSON.parse(localStorage.getItem('lastSaved'));
-      setSavedMovies(lastSavedMovies);
+     /* const lastSavedMovies = JSON.parse(localStorage.getItem('lastSaved'));
+      setSavedMovies(lastSavedMovies);*/
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <Header/>
+      <Header loggedIn={loggedIn}/>
       <main className="main">
         <SearchForm
           searchMovie={searchMovie}
           searchSavedMovie={searchSavedMovie}
           filterShortMovies={filterShortMovies} />
-        <MoviesCardList deleteSavedMovie={deleteSavedMovie} />
+        <MoviesCardList deleteSavedMovie={deleteSavedMovie} savedMovies={savedMovies}/>
       </main>
       <Footer/>
     </>

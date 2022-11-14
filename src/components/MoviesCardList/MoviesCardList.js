@@ -6,15 +6,14 @@ import Preloader from '../Preloader/Preloader';
 import useWindowWidth from "../../hooks/useWindowWidth";
 import { AppContext } from '../../context/AppContext';
 
-const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie }) => {
+const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie, savedMovies }) => {
   const moviesRoute = useRouteMatch({ path: '/movies', exact: false });
   const savedMoviesRoute = useRouteMatch({ path: '/saved-movies', exact: false });
   const {
     moviesCards,
     isCardsLoading,
     errorMessageMovies,
-    errorMessageSavedMovies,
-    savedMovies } = useContext(AppContext);
+    errorMessageSavedMovies,} = useContext(AppContext);
   const width = useWindowWidth();
 
   const movies = useRef();
