@@ -34,19 +34,21 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(localStorage.jwt || false);
   const history = useHistory();
 
+  console.log(moviesCards)
   /*useEffect(() => {
     localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
   });*/
 
   useEffect(() => {
-    const lastSearch = JSON.parse(localStorage.getItem('lastSearch'));
-    setMoviesCards(lastSearch ?? []);
+    const lastSearchedMovies = JSON.parse(localStorage.getItem('lastSearchedMovies'));
+    setMoviesCards(lastSearchedMovies ?? []);
   }, []);
 
 
 
   useEffect(() => {
     const movies = localStorage.getItem('movies');
+    console.log('movies 1')
     if (!movies) {
       if (loggedIn) {
         setIsCardsLoading(true);
@@ -54,6 +56,7 @@ const App = () => {
           .getMoviesInfo()
           .then((movies) => {
             localStorage.setItem('movies', JSON.stringify(movies));
+            console.log('movies 2')
           })
           .catch((error) => {
             setErrorMessageMovies('на сервере произошла ошибка, попробуйте повторить запрос');
@@ -81,6 +84,21 @@ const App = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
+
+
+  function searchMovieByQuery(moviesArray, searchQuery, isChecked) {
+    return moviesArray.filter((item) =>
+      isChecked
+        ? (item.nameRU.toLowerCase().includes(searchQuery.toLowerCase())
+          && item.duration <= 40) ||
+        (item.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+          && item.duration <= 40)
+        : item.nameRU.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        item.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+  }
+
+
 
   function checkToken() {
     const jwt = localStorage.getItem('jwt');
@@ -128,110 +146,7 @@ const App = () => {
     history.push('/');
   }
 
-  function handleSearchMovie(searchQuery) {
-    setIsCardsLoading(true);
-    setErrorMessageMovies(null);
 
-    const initialMovies = JSON.parse(localStorage.getItem('movies'));
-
-    if (!initialMovies) {
-      setErrorMessageMovies('на сервере произошла ошибка, попробуйте повторить запрос');
-      return;
-    }
-
-    const searchMovies = initialMovies.filter((item) => {
-      const title = `${item.nameRU} ${item.nameEN || ''}`.toLowerCase();
-      return title.includes(searchQuery.toLowerCase());
-    });
-
-    localStorage.setItem('lastSearch', JSON.stringify(searchMovies));
-    if (searchMovies.length) {
-      const isChecked = JSON.parse(localStorage.getItem('isChecked'));
-
-      const resultSearch = isChecked
-        ? searchMovies.filter((movie) => movie.duration <= 40)
-        : searchMovies;
-      setMoviesCards(resultSearch);
-      setErrorMessageMovies('');
-    } else {
-      setErrorMessageMovies('Ничего не найдено');
-      setMoviesCards([]);
-    }
-
-    setIsCardsLoading(false);
-  }
-
-
-  function handleSearchSavedMovie(searchQuery) {
-    console.log("handleSearchSavedMovie")
-    setErrorMessageSavedMovies(null);
-    setIsCardsLoading(true);
-    const lastSavedMovies = JSON.parse(localStorage.getItem('lastSaved'));
-    const searchMovies = lastSavedMovies.filter((item) => {
-      const title = `${item.nameRU} ${item.nameEN || ''}`.toLowerCase();
-      return title.includes(searchQuery.toLowerCase());
-    });
-    localStorage.setItem('lastSavedSearch', JSON.stringify(searchMovies));
-    if (searchMovies.length) {
-      const isChecked = JSON.parse(localStorage.getItem('isCheckedSaved'));
-      console.log(isChecked)
-
-      const resultSearch = isChecked
-        ? searchMovies.filter((movie) => movie.duration <= 40)
-        : searchMovies;
-      setSavedMovies(resultSearch);
-    } else {
-      setErrorMessageSavedMovies('Ничего не найдено');
-      setSavedMovies([]);
-    }
-    setIsCardsLoading(false);
-  }
-
-  function handleFilterShortMovies(isChecked) {
-    console.log(isChecked)
-    if (isChecked && moviesCards.length) {
-      const shortMoviesCards = moviesCards.filter((item) => item.duration <= 40);
-      localStorage.setItem('setShortMovies', JSON.stringify(shortMoviesCards));
-      setMoviesCards(shortMoviesCards);
-      console.log(shortMoviesCards)
-    }
-    if (!isChecked && moviesCards.length) {
-      const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearch'));
-      setMoviesCards(lastSearchMovies);
-    }
-    if (!isChecked && !moviesCards.length) {
-      const lastSearchMovies = JSON.parse(localStorage.getItem('lastSearch'));
-      setErrorMessageMovies('');
-      setMoviesCards([]);
-      //setMoviesCards(lastSearchMovies);
-      console.log(lastSearchMovies)
-    }
-    if (!moviesCards.length) {
-      setErrorMessageMovies('Ничего не найдено');
-    }
-  }
-
-  function handleFilterSavedShortMovies(isChecked) {
-    console.log(isChecked)
-    if (isChecked && savedMovies.length) {
-      const shortMoviesCards = savedMovies.filter((item) => item.duration <= 40);
-      localStorage.setItem('setShortSavedMovies', JSON.stringify(shortMoviesCards));
-      setSavedMovies(shortMoviesCards);
-    }
-    if (!isChecked && savedMovies.length) {
-      const lastSavedMovies = JSON.parse(localStorage.getItem('lastSavedSearch'));
-      setSavedMovies(lastSavedMovies);
-    }
-    if (!isChecked && !savedMovies.length) {
-      const lastSavedMovies = JSON.parse(localStorage.getItem('lastSavedSearch'));
-      setSavedMovies(lastSavedMovies);
-      setErrorMessageMovies('');
-      console.log(lastSavedMovies)
-    }
-    if (!savedMovies.length) {
-      setErrorMessageMovies('Ничего не найдено');
-    }
-  }
 
   function handleMovieForDelete(data) {
     const movieForDelete = savedMovies.filter((item) => item.movieId === data.id);
@@ -322,20 +237,18 @@ const App = () => {
               path='/movies'
               component={Movies}
               loggedIn={loggedIn}
-              searchMovie={handleSearchMovie}
+              searchMovieByQuery={searchMovieByQuery}
               saveMovie={handleCreateMovie}
               deleteMovie={handleMovieForDelete}
-              filterShortMovies={handleFilterShortMovies}
               errorMessageMovies={setErrorMessageMovies}
             />
             <ProtectedRoute
               path='/saved-movies'
               component={SavedMovies}
               loggedIn={loggedIn}
+              searchMovieByQuery={searchMovieByQuery}
               savedMovies={savedMovies}
-              searchSavedMovie={handleSearchSavedMovie}
               deleteSavedMovie={handleDeleteMovie}
-              filterShortMovies={handleFilterSavedShortMovies}
               errorMessageSavedMovies={setErrorMessageSavedMovies}
             />
             <ProtectedRoute

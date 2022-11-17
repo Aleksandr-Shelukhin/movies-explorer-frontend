@@ -6,13 +6,11 @@ import Footer from "../Footer/Footer";
 
 const SavedMovies = (
   {
-    savedMovies, // !!! поправить
-    searchMovie,
-    searchSavedMovie,
+    savedMovies,
     deleteSavedMovie,
-    filterShortMovies,
     errorMessageSavedMovies,
-    loggedIn
+    loggedIn,
+    searchMovieByQuery
   }) => {
   useEffect(() => {
     return () => {
@@ -27,11 +25,11 @@ const SavedMovies = (
     <>
       <Header loggedIn={loggedIn}/>
       <main className="main">
-        <SearchForm
-          searchMovie={searchMovie}
-          searchSavedMovie={searchSavedMovie}
-          filterShortMovies={filterShortMovies} />
-        <MoviesCardList deleteSavedMovie={deleteSavedMovie} savedMovies={savedMovies}/>
+        <SearchForm searchMovieByQuery={searchMovieByQuery}/>
+
+        <MoviesCardList
+          deleteSavedMovie={deleteSavedMovie}
+          savedMovies={savedMovies}/>
       </main>
       <Footer/>
     </>

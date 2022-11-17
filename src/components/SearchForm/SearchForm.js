@@ -1,13 +1,62 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { Route } from "react-router-dom";
 import { useForm } from 'react-hook-form';
 
 import FilterCheckBox from "../FilterCheckBox/FilterCheckBox";
 
-const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
+const SearchForm = ({ searchMovieByQuery, submitSearchMovies, setSearchedMoviesArray }) => {
 
-  const [allMovies, setAllMovies] = useState(localStorage.getItem('searchQueryMovies') || '');
-  const [savedMovies, setSavedMovies] = useState('');
+  const [allMoviesQuery, setAllMoviesQuery] = useState(localStorage.getItem('searchQueryMovies') || '');
+  const [savedMoviesQuery, setSavedMoviesQuery] = useState('');
+
+  //const [searchedMoviesArray, setSearchedMoviesArray] = useState(JSON.parse(localStorage.getItem('lastSearchedMovies')) || []);
+  const [searchedSaveMoviesArray, setSearchedSaveMoviesArray] = useState(JSON.parse(localStorage.getItem('lastSearchedMovies')) || []);
+
+  const [checked, setChecked] = useState(JSON.parse(localStorage.getItem('isChecked')) || false);
+  const [checkedSaved, setCheckedSaved] = useState( false);
+
+  const moviesCards = JSON.parse(localStorage.getItem('movies'))
+  localStorage.setItem('isChecked', checked);
+  localStorage.setItem('isCheckedSaved', checkedSaved);
+
+  /*console.log(searchedMoviesArray)*/
+  console.log(searchedSaveMoviesArray)
+
+  const onTumblerMoviesUpdate = (data) => {
+    setSearchedMoviesArray(data)
+  }
+
+  function filterShortMovies() {
+    const initialMovies = JSON.parse(localStorage.getItem('movies'))
+    const allMoviesQuery = localStorage.getItem('searchQueryMovies')
+    const isChecked = !checked;
+    setChecked(isChecked);
+    console.log(isChecked)
+    const renderMoviesArray = searchMovieByQuery(initialMovies, allMoviesQuery, isChecked);
+    localStorage.setItem('lastSearchedMovies', JSON.stringify(renderMoviesArray))
+    onTumblerMoviesUpdate(renderMoviesArray)
+    console.log(renderMoviesArray)
+  }
+
+  function filterShortSaveMovies(data) {
+    const isChecked = !checkedSaved;
+    setCheckedSaved(isChecked);
+    searchMovieByQuery(savedMoviesQuery, data.allSavedMoviesQuery, checkedSaved);
+  }
+
+ /* function submitSearchMovies(data) {
+
+    setSearchedMoviesArray(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked))
+    console.log(moviesCards)
+    console.log(data.allMoviesQuery)
+    console.log(checked)
+    localStorage.setItem('lastSearchedMovies', JSON.stringify(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked)))
+  }*/
+
+  function submitSearchSaveMovies(data) {
+    setSearchedSaveMoviesArray(searchMovieByQuery(savedMoviesQuery, data.allSavedMoviesQuery, checkedSaved));
+    localStorage.setItem('lastSearchedSaveMovies', JSON.stringify(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked)))
+  }
 
   const {
     register,
@@ -15,7 +64,7 @@ const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
     formState: { errors },
   } = useForm({
     mode: 'onChange',
-    defaultValues: { allMoviesQuery: allMovies },
+    defaultValues: { allMoviesQuery: allMoviesQuery },
   });
 
   const {
@@ -24,25 +73,27 @@ const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
     formState: { errors: errorsSavedMoviesForm },
   } = useForm({
     mode: 'onChange',
-    defaultValues: { allSavedMoviesQuery: savedMovies },
+    defaultValues: { allSavedMoviesQuery: savedMoviesQuery },
   });
 
   const moviesInput = (evt) => {
-    setAllMovies(localStorage.setItem('searchQueryMovies', evt.target.value));
+    setAllMoviesQuery(localStorage.setItem('searchQueryMovies', evt.target.value));
   };
 
   const savedMoviesInput = (evt) => {
-    setSavedMovies(localStorage.setItem('searchQuerySavedMovies', evt.target.value));
+    setSavedMoviesQuery(localStorage.setItem('searchQuerySavedMovies', evt.target.value));
   };
 
-  const handleSubmitAllMovie = (data) => {
-    searchMovie(data.allMoviesQuery);
+ /* const handleSubmitAllMovie = (data) => {
+    searchMovieByQuery(data.allMoviesQuery);
 
   };
 
   const handleSubmitAllSavedMovie = (data) => {
-    searchSavedMovie(data.allSavedMoviesQuery);
-  };
+    searchMovieByQuery(data.allSavedMoviesQuery);
+  };*/
+
+
 
   return (
     <>
@@ -51,7 +102,7 @@ const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
         <div className="container container_type_movie-page">
           <form
             key={1}
-            onSubmit={handleSubmit(handleSubmitAllMovie)}
+            onSubmit={handleSubmit(submitSearchMovies)}
             className="search__form"
             id='all-movies'
           >
@@ -74,7 +125,9 @@ const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
               {errors?.allMoviesQuery?.message}
             </span>
           </form>
-          <FilterCheckBox filterShortMovies={filterShortMovies}/>
+          <FilterCheckBox
+            filterShortMovies={filterShortMovies}
+            checked={checked}/>
           <hr className="search__line"/>
         </div>
       </div>
@@ -85,7 +138,7 @@ const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
       <div className="container container_type_movie-page">
         <form
           key={2}
-          onSubmit={handleSubmitSavedMoviesForm(handleSubmitAllSavedMovie)}
+          onSubmit={handleSubmitSavedMoviesForm(submitSearchSaveMovies)}
           className="search__form"
           id='all-saved-movies'
         >
@@ -108,7 +161,9 @@ const SearchForm = ({ searchMovie, searchSavedMovie, filterShortMovies }) => {
               {errorsSavedMoviesForm?.allSavedMoviesQuery?.message}
             </span>
         </form>
-        <FilterCheckBox filterShortMovies={filterShortMovies}/>
+        <FilterCheckBox
+          filterShortSaveMovies={filterShortSaveMovies}
+          checkedSaved={checkedSaved}/>
         <hr className="search__line"/>
       </div>
     </div>

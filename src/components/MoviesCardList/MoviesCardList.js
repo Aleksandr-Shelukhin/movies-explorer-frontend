@@ -6,7 +6,7 @@ import Preloader from '../Preloader/Preloader';
 import useWindowWidth from "../../hooks/useWindowWidth";
 import { AppContext } from '../../context/AppContext';
 
-const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie, savedMovies }) => {
+const MoviesCardList = ({searchedMoviesArray, saveMovie, deleteMovie, deleteSavedMovie, savedMovies }) => {
   const moviesRoute = useRouteMatch({ path: '/movies', exact: false });
   const savedMoviesRoute = useRouteMatch({ path: '/saved-movies', exact: false });
   const {
@@ -20,7 +20,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie, savedMovies 
   if (savedMoviesRoute && savedMoviesRoute.path) {
     movies.current = savedMovies;
   } else {
-    movies.current = moviesCards;
+    movies.current = searchedMoviesArray;
   }
 
   const [cards, setCards] = useState(0);
@@ -64,7 +64,7 @@ const MoviesCardList = ({ saveMovie, deleteMovie, deleteSavedMovie, savedMovies 
         <div className="movies__list">
           {moviesRoute && (
             <>
-              {moviesCards.slice(0, cards).map((card) => (
+              {searchedMoviesArray.slice(0, cards).map((card) => (
                 <MoviesCard
                   key={card.id}
                   card={card}
