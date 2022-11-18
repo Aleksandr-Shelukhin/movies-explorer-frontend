@@ -34,11 +34,6 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(localStorage.jwt || false);
   const history = useHistory();
 
-  console.log(moviesCards)
-  /*useEffect(() => {
-    localStorage.setItem('loggedIn', JSON.stringify(loggedIn));
-  });*/
-
   useEffect(() => {
     const lastSearchedMovies = JSON.parse(localStorage.getItem('lastSearchedMovies'));
     setMoviesCards(lastSearchedMovies ?? []);
@@ -46,7 +41,6 @@ const App = () => {
 
   useEffect(() => {
     const movies = localStorage.getItem('movies');
-    console.log('movies 1')
     if (!movies) {
       if (loggedIn) {
         setIsCardsLoading(true);
@@ -54,7 +48,6 @@ const App = () => {
           .getMoviesInfo()
           .then((movies) => {
             localStorage.setItem('movies', JSON.stringify(movies));
-            console.log('movies 2')
           })
           .catch((error) => {
             setErrorMessageMovies('на сервере произошла ошибка, попробуйте повторить запрос');
@@ -100,7 +93,6 @@ const App = () => {
       auth.validateToken(jwt)
         .then(() => {
           setLoggedIn(true);
-          console.log('setLoggedIn true')
         })
         .catch(() => {
           setLoggedIn(false);
@@ -111,7 +103,6 @@ const App = () => {
       setLoggedIn(false);
       localStorage.clear();
     }
-    console.log('Проверка токена')
   }
 
   function handleLogin({ email, password }) {
@@ -139,8 +130,6 @@ const App = () => {
     setCurrentUser({});
     history.push('/');
   }
-
-
 
   function handleMovieForDelete(data) {
     const movieForDelete = savedMovies.filter((item) => item.movieId === data.id);
@@ -206,6 +195,7 @@ const App = () => {
       })
       .finally(() => setIsDisabledForm(false));
   }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <AppContext.Provider

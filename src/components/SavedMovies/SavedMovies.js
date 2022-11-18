@@ -27,7 +27,6 @@ const SavedMovies = (
     const checked = JSON.parse(localStorage.getItem('isCheckedSaved'))
     const filterArray = searchMovieByQuery(moviesCards, data.allSavedMoviesQuery, checked)
     setSearchedSaveMoviesArray(filterArray)
-    //localStorage.setItem('lastSaved', JSON.stringify(searchMovieByQuery(savedMovies, data.allSavedMoviesQuery, checked)))
     if(filterArray.length === 0) {
       updateListError(true)
     } else if (filterArray.length >= 1) {
@@ -38,8 +37,6 @@ const SavedMovies = (
   useEffect(() => {
     return () => {
       errorMessageSavedMovies(null);
-     /* const lastSavedMovies = JSON.parse(localStorage.getItem('lastSaved'));
-      setSavedMovies(lastSavedMovies);*/
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

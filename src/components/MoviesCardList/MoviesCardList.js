@@ -32,8 +32,6 @@ const MoviesCardList = ({
     movies.current = searchedMoviesArray;
   }
 
-
-
   const [cards, setCards] = useState(0);
   const [moreCards, setMoreCards] = useState(0);
 

@@ -18,18 +18,11 @@ const SearchForm = (
   const [allMoviesQuery, setAllMoviesQuery] = useState(localStorage.getItem('searchQueryMovies') || '');
   const [savedMoviesQuery, setSavedMoviesQuery] = useState('');
 
-  //const [searchedMoviesArray, setSearchedMoviesArray] = useState(JSON.parse(localStorage.getItem('lastSearchedMovies')) || []);
-  //const [searchedSaveMoviesArray, setSearchedSaveMoviesArray] = useState(JSON.parse(localStorage.getItem('lastSearchedMovies')) || []);
-
   const [checked, setChecked] = useState(JSON.parse(localStorage.getItem('isChecked')) || false);
   const [checkedSaved, setCheckedSaved] = useState( false);
 
-  //const moviesCards = JSON.parse(localStorage.getItem('movies'))
   localStorage.setItem('isChecked', checked);
   localStorage.setItem('isCheckedSaved', checkedSaved);
-
-  /*console.log(searchedMoviesArray)*/
-  //console.log(searchedSaveMoviesArray)
 
   const onTumblerMoviesUpdate = (data) => {
     setSearchedMoviesArray(data)
@@ -44,7 +37,6 @@ const SearchForm = (
     const allMoviesQuery = localStorage.getItem('searchQueryMovies')
     const isChecked = !checked;
     setChecked(isChecked);
-    console.log(isChecked)
     if(allMoviesQuery !== null) {
       const renderMoviesArray = searchMovieByQuery(initialMovies, allMoviesQuery, isChecked);
       localStorage.setItem('lastSearchedMovies', JSON.stringify(renderMoviesArray))
@@ -74,20 +66,6 @@ const SearchForm = (
     }
   }
 
- /* function submitSearchMovies(data) {
-
-    setSearchedMoviesArray(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked))
-    console.log(moviesCards)
-    console.log(data.allMoviesQuery)
-    console.log(checked)
-    localStorage.setItem('lastSearchedMovies', JSON.stringify(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked)))
-  }*/
-
-  /*function submitSearchSaveMovies(data) {
-    setSearchedSaveMoviesArray(searchMovieByQuery(savedMoviesQuery, data.allSavedMoviesQuery, checkedSaved));
-    localStorage.setItem('lastSearchedSaveMovies', JSON.stringify(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked)))
-  }*/
-
   const {
     register,
     handleSubmit,
@@ -113,17 +91,6 @@ const SearchForm = (
   const savedMoviesInput = (evt) => {
     setSavedMoviesQuery(localStorage.setItem('searchQuerySavedMovies', evt.target.value));
   };
-
- /* const handleSubmitAllMovie = (data) => {
-    searchMovieByQuery(data.allMoviesQuery);
-
-  };
-
-  const handleSubmitAllSavedMovie = (data) => {
-    searchMovieByQuery(data.allSavedMoviesQuery);
-  };*/
-
-
 
   return (
     <>
