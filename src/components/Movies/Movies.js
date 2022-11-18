@@ -16,12 +16,23 @@ const Movies = (
 
   const [searchedMoviesArray, setSearchedMoviesArray] = useState(JSON.parse(localStorage.getItem('lastSearchedMovies')) || []);
 
+  const [emptyListErrorAllMovies, setEmptyListErrorAllMovies] = useState(false);
+
+  const updateListErrorAllMovies = (state) => {
+    setEmptyListErrorAllMovies(state)
+  }
   const moviesCards = JSON.parse(localStorage.getItem('movies'))
 
   function submitSearchMovies(data) {
     const checked = JSON.parse(localStorage.getItem('isChecked'))
-    setSearchedMoviesArray(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked))
+    const filterArray = searchMovieByQuery(moviesCards, data.allMoviesQuery, checked)
+    setSearchedMoviesArray(filterArray)
     localStorage.setItem('lastSearchedMovies', JSON.stringify(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked)))
+    if(filterArray.length === 0) {
+      updateListErrorAllMovies(true)
+    } else if (filterArray.length >= 1) {
+      updateListErrorAllMovies(false)
+    }
   }
 
   useEffect(() => {
@@ -36,10 +47,13 @@ const Movies = (
       <Header loggedIn={loggedIn}/>
       <main className="main">
         <SearchForm
+          updateListErrorAllMovies={updateListErrorAllMovies}
           setSearchedMoviesArray={(data) => setSearchedMoviesArray(data)}
           submitSearchMovies={submitSearchMovies}
           searchMovieByQuery={searchMovieByQuery}/>
+
         <MoviesCardList
+          emptyListErrorAllMovies={emptyListErrorAllMovies}
           searchedMoviesArray={searchedMoviesArray}
           saveMovie={saveMovie}
           deleteMovie={deleteMovie}

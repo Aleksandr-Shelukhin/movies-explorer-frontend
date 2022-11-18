@@ -4,26 +4,39 @@ import { useForm } from 'react-hook-form';
 
 import FilterCheckBox from "../FilterCheckBox/FilterCheckBox";
 
-const SearchForm = ({ searchMovieByQuery, submitSearchMovies, setSearchedMoviesArray }) => {
+const SearchForm = (
+  {
+    searchMovieByQuery,
+    submitSearchMovies,
+    submitSearchSaveMovies,
+    setSearchedMoviesArray,
+    setSearchedSaveMoviesArray,
+    updateListError,
+    updateListErrorAllMovies,
+  }) => {
 
   const [allMoviesQuery, setAllMoviesQuery] = useState(localStorage.getItem('searchQueryMovies') || '');
   const [savedMoviesQuery, setSavedMoviesQuery] = useState('');
 
   //const [searchedMoviesArray, setSearchedMoviesArray] = useState(JSON.parse(localStorage.getItem('lastSearchedMovies')) || []);
-  const [searchedSaveMoviesArray, setSearchedSaveMoviesArray] = useState(JSON.parse(localStorage.getItem('lastSearchedMovies')) || []);
+  //const [searchedSaveMoviesArray, setSearchedSaveMoviesArray] = useState(JSON.parse(localStorage.getItem('lastSearchedMovies')) || []);
 
   const [checked, setChecked] = useState(JSON.parse(localStorage.getItem('isChecked')) || false);
   const [checkedSaved, setCheckedSaved] = useState( false);
 
-  const moviesCards = JSON.parse(localStorage.getItem('movies'))
+  //const moviesCards = JSON.parse(localStorage.getItem('movies'))
   localStorage.setItem('isChecked', checked);
   localStorage.setItem('isCheckedSaved', checkedSaved);
 
   /*console.log(searchedMoviesArray)*/
-  console.log(searchedSaveMoviesArray)
+  //console.log(searchedSaveMoviesArray)
 
   const onTumblerMoviesUpdate = (data) => {
     setSearchedMoviesArray(data)
+  }
+
+  const onTumblerSaveMoviesUpdate = (data) => {
+    setSearchedSaveMoviesArray(data)
   }
 
   function filterShortMovies() {
@@ -32,16 +45,33 @@ const SearchForm = ({ searchMovieByQuery, submitSearchMovies, setSearchedMoviesA
     const isChecked = !checked;
     setChecked(isChecked);
     console.log(isChecked)
-    const renderMoviesArray = searchMovieByQuery(initialMovies, allMoviesQuery, isChecked);
-    localStorage.setItem('lastSearchedMovies', JSON.stringify(renderMoviesArray))
-    onTumblerMoviesUpdate(renderMoviesArray)
-    console.log(renderMoviesArray)
+    if(allMoviesQuery !== null) {
+      const renderMoviesArray = searchMovieByQuery(initialMovies, allMoviesQuery, isChecked);
+      localStorage.setItem('lastSearchedMovies', JSON.stringify(renderMoviesArray))
+      onTumblerMoviesUpdate(renderMoviesArray)
+      if(renderMoviesArray.length === 0) {
+        updateListErrorAllMovies(true)
+      } else if (renderMoviesArray.length >= 1) {
+        updateListErrorAllMovies(false)
+      }
+    }
   }
 
-  function filterShortSaveMovies(data) {
+  function filterShortSaveMovies() {
+    const initialMovies = JSON.parse(localStorage.getItem('lastSaved'))
+    const saveMoviesSaveQuery = localStorage.getItem('searchQuerySavedMovies')
     const isChecked = !checkedSaved;
     setCheckedSaved(isChecked);
-    searchMovieByQuery(savedMoviesQuery, data.allSavedMoviesQuery, checkedSaved);
+    if(saveMoviesSaveQuery !== null) {
+      const renderMoviesArray = searchMovieByQuery(initialMovies, saveMoviesSaveQuery, isChecked);
+      //localStorage.setItem('lastSaved', JSON.stringify(renderMoviesArray))
+      onTumblerSaveMoviesUpdate(renderMoviesArray)
+      if(renderMoviesArray.length === 0) {
+        updateListError(true)
+      } else if (renderMoviesArray.length >= 1) {
+        updateListError(false)
+      }
+    }
   }
 
  /* function submitSearchMovies(data) {
@@ -53,10 +83,10 @@ const SearchForm = ({ searchMovieByQuery, submitSearchMovies, setSearchedMoviesA
     localStorage.setItem('lastSearchedMovies', JSON.stringify(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked)))
   }*/
 
-  function submitSearchSaveMovies(data) {
+  /*function submitSearchSaveMovies(data) {
     setSearchedSaveMoviesArray(searchMovieByQuery(savedMoviesQuery, data.allSavedMoviesQuery, checkedSaved));
     localStorage.setItem('lastSearchedSaveMovies', JSON.stringify(searchMovieByQuery(moviesCards, data.allMoviesQuery, checked)))
-  }
+  }*/
 
   const {
     register,

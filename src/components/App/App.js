@@ -44,8 +44,6 @@ const App = () => {
     setMoviesCards(lastSearchedMovies ?? []);
   }, []);
 
-
-
   useEffect(() => {
     const movies = localStorage.getItem('movies');
     console.log('movies 1')
@@ -67,10 +65,9 @@ const App = () => {
     }
   }, [loggedIn]);
 
-  useEffect(() => { // провекрка токена
+  useEffect(() => {
     checkToken();
     if (loggedIn) {
-      //history.push('/movies');
       Promise.all([mainApi.getUserInfo(), mainApi.getMoviesInfo()])
         .then(([user, data]) => {
           setCurrentUser(user);
@@ -85,7 +82,6 @@ const App = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [loggedIn]);
 
-
   function searchMovieByQuery(moviesArray, searchQuery, isChecked) {
     return moviesArray.filter((item) =>
       isChecked
@@ -97,8 +93,6 @@ const App = () => {
         item.nameEN.toLowerCase().includes(searchQuery.toLowerCase())
     )
   }
-
-
 
   function checkToken() {
     const jwt = localStorage.getItem('jwt');

@@ -6,7 +6,16 @@ import Preloader from '../Preloader/Preloader';
 import useWindowWidth from "../../hooks/useWindowWidth";
 import { AppContext } from '../../context/AppContext';
 
-const MoviesCardList = ({searchedMoviesArray, saveMovie, deleteMovie, deleteSavedMovie, savedMovies }) => {
+const MoviesCardList = ({
+      searchedMoviesArray,
+      searchedSaveMoviesArray,
+      saveMovie,
+      deleteMovie,
+      deleteSavedMovie,
+      savedMovies,
+      emptyListError,
+      emptyListErrorAllMovies,
+  }) => {
   const moviesRoute = useRouteMatch({ path: '/movies', exact: false });
   const savedMoviesRoute = useRouteMatch({ path: '/saved-movies', exact: false });
   const {
@@ -22,6 +31,8 @@ const MoviesCardList = ({searchedMoviesArray, saveMovie, deleteMovie, deleteSave
   } else {
     movies.current = searchedMoviesArray;
   }
+
+
 
   const [cards, setCards] = useState(0);
   const [moreCards, setMoreCards] = useState(0);
@@ -53,6 +64,13 @@ const MoviesCardList = ({searchedMoviesArray, saveMovie, deleteMovie, deleteSave
     <div className="movies">
       <div className="container container_type_movie-page">
         <div className="movies__list-preloader">
+          {savedMoviesRoute && emptyListError && (
+            <p className="movies__list-error-message">Ничего не найдено</p>
+          )}
+          {moviesRoute && emptyListErrorAllMovies && (
+            <p className="movies__list-error-message">Ничего не найдено</p>
+          )}
+
           {errorMessageMovies && (
             <p className="movies__list-error-message">{errorMessageMovies}</p>
           )}
@@ -76,7 +94,7 @@ const MoviesCardList = ({searchedMoviesArray, saveMovie, deleteMovie, deleteSave
           )}
           {savedMoviesRoute && (
             <>
-              {savedMovies.slice(0, cards).map((card) => (
+              {searchedSaveMoviesArray.slice(0, cards).map((card) => (
                 <MoviesCard
                   key={card._id}
                   card={card}
@@ -96,6 +114,7 @@ const MoviesCardList = ({searchedMoviesArray, saveMovie, deleteMovie, deleteSave
           type="button"
           onClick={getMoreCards}
         >Ещё</button>}
+
       </div>
     </div>
   );
