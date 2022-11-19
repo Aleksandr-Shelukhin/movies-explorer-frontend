@@ -84,16 +84,23 @@
     outline: none;
 }
 
-.user-form__input-error {
+.user-form__input-error,
+.user-form__login-error {
     font-family: 'Inter', 'Arial', 'Helvetica', sans-serif;
     font-size: 10px;
     font-weight: 400;
     text-size-adjust: 100%;
     color: var(--accent-magenta);
+}
 
+.user-form__input-error{
     position: absolute;
     left: 0;
     bottom: 8px;
+}
+
+.user-form__login-error {
+    font-size: 14px;
 }
 
 .user-form__form-button,

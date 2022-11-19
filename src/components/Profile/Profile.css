@@ -131,6 +131,12 @@
     text-align: center;
 }
 
+.profile__form-button_type_disabled {
+    color: var(--text-grey);
+    pointer-events: none;
+    user-select: none;
+}
+
 @media screen and (max-width: 768px) {
     .profile {
         padding-top: 310px;

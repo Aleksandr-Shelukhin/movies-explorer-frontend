@@ -32,6 +32,10 @@
     margin-left: 74px;
 }
 
+.header__nav_hidden {
+    display: none;
+}
+
 .header__link {
     margin: 0 0 0 18px;
 
@@ -45,7 +49,12 @@
 }
 
 .header__link_active {
-    font-weight: 500;
+    font-weight: 700;
+}
+
+.header__link_active-mobile {
+    font-weight: 400;
+    text-decoration: underline;
 }
 
 .header__link_type_signup,
@@ -102,6 +111,11 @@
     .header {
         padding: 0 30px;
     }
+
+    .header__link_mobile {
+        margin: 0 0 28px 0;
+    }
+
 
     .header__nav,
     .header__link_type_profile {
